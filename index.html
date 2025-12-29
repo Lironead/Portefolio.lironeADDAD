@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — Lirone ADDAD</title>
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:rgba(255,255,255,.04);
+      --border:rgba(255,255,255,.10);
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --brand:#60a5fa;
+      --brand2:#22c55e;
+      --radius:18px;
+      --max:1050px;
+      --shadow:0 14px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 15% 0%, rgba(96,165,250,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,.12), transparent 55%),
+        var(--bg);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,25,.72);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar .inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0; gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; font-weight:900; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(96,165,250,.95), rgba(34,197,94,.85));
+      color:#071018;
+      box-shadow: 0 10px 22px rgba(0,0,0,.35);
+      font-weight:900;
+    }
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    nav a{
+      text-decoration:none;
+      color:var(--muted);
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      color:var(--text);
+      border-color:var(--border);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Layout */
+    header{padding:42px 0 14px;}
+    main{padding:10px 0 52px;}
+    section{padding:20px 0;}
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing:-.7px;
+      line-height:1.1;
+    }
+    h2{
+      margin:0 0 12px;
+      font-size:18px;
+      letter-spacing:-.2px;
+      color:var(--text);
+    }
+    .sub{margin:0; color:var(--muted); max-width:62ch}
+    .grid{display:grid; gap:16px;}
+    .grid-2{grid-template-columns: 1.2fr .8fr;}
+    .grid-3{grid-template-columns: repeat(3, 1fr);}
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .p{padding:18px;}
+    .pill-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      font-size:13px;
+      color:var(--muted);
+    }
+    .dot{width:8px; height:8px; border-radius:999px; background:var(--brand);}
+    .dot.g{background:var(--brand2);}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:800;
+      text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(96,165,250,.95), rgba(34,197,94,.85));
+      color:#071018;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      color:var(--text);
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px)}
+    .muted{color:var(--muted)}
+    .list{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+    .chip{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding:7px 10px;
+      border-radius: 999px;
+      font-size:13px;
+      color:var(--text);
+    }
+    .item{
+      padding:16px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(15,23,42,.55);
+    }
+    .item h3{margin:0 0 6px; font-size:15px}
+    .item p{margin:0; color:var(--muted); font-size:14px}
+    .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; color:var(--muted); font-size:13px;}
+    .meta span{
+      border:1px solid var(--border);
+      padding:6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.03);
+    }
+
+    /* Contact */
+    form{display:grid; gap:10px}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    textarea{min-height:110px; resize:vertical}
+    input:focus, textarea:focus{
+      border-color: rgba(96,165,250,.55);
+      box-shadow: 0 0 0 4px rgba(96,165,250,.12);
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:18px 0 28px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media (max-width: 980px){
+      nav{display:none}
+      .grid-2{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="inner">
+        <a class="brand" href="#top">
+          <span class="logo">LA</span>
+          <span>Lirone ADDAD</span>
+        </a>
+        <nav aria-label="Navigation">
+          <a href="#apropos">À propos</a>
+          <a href="#competences">Compétences</a>
+          <a href="#experience">Expérience</a>
+          <a href="#certifs">Certifs</a>
+          <a href="#bts">BTS SIO</a>
+          <a href="#projets">Projets</a>
+          <a href="#veille">Veille</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <a id="top"></a>
+  <header>
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="p">
+            <h1>Lirone ADDAD</h1>
+            <p class="sub">BTS SIO (2e année) • Portfolio SISR — clair, rapide, sans blabla.</p>
+
+            <div class="pill-row">
+              <span class="pill"><span class="dot"></span> Systèmes & Réseaux</span>
+              <span class="pill"><span class="dot g"></span> Sécurité</span>
+              <span class="pill"><span class="dot"></span> Support</span>
+            </div>
+
+            <div class="actions">
+              <a class="btn primary" href="#projets">Projets</a>
+              <a class="btn ghost" href="#contact">Contact</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="p">
+            <h2>Infos</h2>
+            <p class="muted" style="margin:0">
+              Ville : <strong style="color:var(--text)">Saint-Brice</strong><br>
+              Email : <strong style="color:var(--text)">Lirone9955@gmail.com</strong><br>
+              Git/LinkedIn : <strong style="color:var(--text)">à compléter</strong>
+            </p>
+            <div class="chips">
+              <span class="chip">Alternance</span>
+              <span class="chip">SISR</span>
+              <span class="chip">Lab perso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="apropos">
+      <div class="container">
+        <h2>À propos</h2>
+        <div class="card"><div class="p">
+          <p class="muted" style="margin:0; max-width:80ch">
+            Je m’appelle Lirone ADDAD, étudiant en 2e année de BTS SIO (option SISR). Je me forme à l’administration systèmes et réseaux et à la sécurisation d’infrastructures.
+J’aime mettre en place des services (DNS/DHCP, Active Directory, serveur web, VPN), diagnostiquer des incidents et documenter proprement (procédures, schémas).
+Objectif : évoluer vers un poste administrateur systèmes/réseaux (avec une dimension sécurité).
+          </p>
+        </div></div>
+      </div>
+    </section>
+
+    <section id="competences">
+      <div class="container">
+        <h2>Compétences</h2>
+        <div class="grid grid-3">
+          <div class="item">
+            <h3>Réseau</h3>
+            <p>IP, VLAN, DNS/DHCP, diag.</p>
+            <div class="meta"><span>TCP/IP</span><span>Wireshark</span></div>
+          </div>
+          <div class="item">
+            <h3>Systèmes</h3>
+            <p>Linux/Windows, services.</p>
+            <div class="meta"><span>Debian</span><span>Windows</span></div>
+          </div>
+          <div class="item">
+            <h3>Sécurité</h3>
+            <p>Firewall, VPN, règles.</p>
+            <div class="meta"><span>pfSense</span><span>VPN</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <h2>Expérience</h2>
+        <div class="grid">
+          <div class="item">
+            <h3>Alternance — Entreprise (AAAA–AAAA)</h3>
+            <p>3 bullets max : support, admin, projet.</p>
+            <ul class="list">
+              <li>Ex : Support N1/N2 + préparation postes</li>
+              <li>Ex : gestion comptes/droits + documentation</li>
+              <li>Ex : participation projet réseau/sécurité</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>Stage — Entreprise (AAAA)</h3>
+            <p>Résultat concret + ce que tu as livré.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifs">
+      <div class="container">
+        <h2>Certifications</h2>
+        <div class="grid grid-3">
+          <div class="item"><h3>SecNumAcadémie</h3><p>AAAA — à compléter</p></div>
+          <div class="item"><h3>Certification 2</h3><p>AAAA — à compléter</p></div>
+          <div class="item"><h3>Certification 3</h3><p>AAAA — à compléter</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bts">
+  <div class="container">
+    <h2>BTS SIO</h2>
+
+    <div class="card">
+      <div class="p">
+        <div class="tabs" role="tablist" aria-label="Onglets BTS SIO">
+          <button class="tab-btn" role="tab" id="tab-slam" aria-controls="panel-slam" aria-selected="false" type="button">
+            Option SLAM
+          </button>
+          <button class="tab-btn" role="tab" id="tab-sisr" aria-controls="panel-sisr" aria-selected="true" type="button">
+            Option SISR
+          </button>
+          <button class="tab-btn" role="tab" id="tab-deb" aria-controls="panel-deb" aria-selected="false" type="button">
+            Débouchés
+          </button>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="tab-panel" id="panel-slam" role="tabpanel" aria-labelledby="tab-slam">
+          <div class="item">
+            <h3>SLAM — Solutions Logicielles et Applications Métiers</h3>
+            <p class="muted" style="margin:0">
+              Option orientée <strong>développement</strong> : conception d’applications, programmation, bases de données,
+              et création de solutions adaptées aux besoins des utilisateurs.
+            </p>
+            <ul class="list">
+              <li>Développement d’applications (web / desktop)</li>
+              <li>Conception et gestion de bases de données</li>
+              <li>Tests, maintenance et évolution d’applications</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-panel active" id="panel-sisr" role="tabpanel" aria-labelledby="tab-sisr">
+          <div class="item">
+            <h3>SISR — Solutions d’Infrastructure, Systèmes et Réseaux</h3>
+            <p class="muted" style="margin:0">
+              Option orientée <strong>infrastructure</strong> : administration systèmes, réseaux, services et
+              sécurisation des environnements informatiques.
+            </p>
+            <ul class="list">
+              <li>Administration systèmes (Linux / Windows)</li>
+              <li>Réseaux et services (DNS, DHCP, AD…)</li>
+              <li>Sécurité (pare-feu, VPN, segmentation)</li>
+              <li>Supervision et documentation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-deb" role="tabpanel" aria-labelledby="tab-deb">
+          <div class="item">
+            <h3>Débouchés après un BTS SIO</h3>
+            <p class="muted" style="margin:0">
+              Le BTS SIO permet d’entrer sur le marché du travail ou de poursuivre en licence/bachelor.
+            </p>
+            <div class="grid grid-2" style="margin-top:12px">
+              <div class="item">
+                <h3>Débouchés SISR</h3>
+                <ul class="list">
+                  <li>Technicien systèmes et réseaux</li>
+                  <li>Administrateur systèmes / réseau (junior)</li>
+                  <li>Technicien support / exploitation</li>
+                  <li>Technicien cybersécurité (junior)</li>
+                </ul>
+              </div>
+              <div class="item">
+                <h3>Débouchés SLAM</h3>
+                <ul class="list">
+                  <li>Développeur web / applicatif (junior)</li>
+                  <li>Développeur logiciel</li>
+                  <li>Technicien applicatif</li>
+                  <li>Intégrateur d’applications</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="projets">
+      <div class="container">
+        <h2>Projets</h2>
+        <div class="grid grid-3">
+          <div class="item">
+            <h3>Projet 1</h3>
+            <p>1 ligne : objectif + résultat.</p>
+            <div class="meta"><span>Tech 1</span><span>Tech 2</span></div>
+          </div>
+          <div class="item">
+            <h3>Projet 2</h3>
+            <p>1 ligne : objectif + résultat.</p>
+            <div class="meta"><span>Tech 1</span><span>Tech 2</span></div>
+          </div>
+          <div class="item">
+            <h3>Projet 3</h3>
+            <p>1 ligne : objectif + résultat.</p>
+            <div class="meta"><span>Tech 1</span><span>Tech 2</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="veille">
+      <div class="container">
+        <h2>Veille technologique</h2>
+        <div class="grid grid-2">
+          <div class="item">
+            <h3>Thèmes</h3>
+            <p>2–4 thèmes max : CVE, hardening, réseau, cloud, etc.</p>
+          </div>
+          <div class="item">
+            <h3>Dernière synthèse</h3>
+            <p>Date + 4–5 lignes de résumé (ton analyse, pas du copié/collé).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="grid grid-2">
+          <div class="item">
+            <h3>Coordonnées</h3>
+            <p class="muted" style="margin:0">
+              Email : <strong style="color:var(--text)">Lirone9955@gmail.com</strong><br>
+              Téléphone : <strong style="color:var(--text)">0783106865</strong><br>
+              LinkedIn/Git : <strong style="color:var(--text)">à compléter</strong>
+            </p>
+          </div>
+          <div class="item">
+            <h3>Message</h3>
+            <form onsubmit="event.preventDefault(); alert('Formulaire statique : ajoute un backend si tu veux envoyer.');">
+              <input type="text" placeholder="Nom" required />
+              <input type="email" placeholder="Email" required />
+              <textarea placeholder="Message" required></textarea>
+              <button class="btn primary" type="submit">Envoyer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="y"></span> Lirone ADDAD — Portfolio BTS SIO
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
