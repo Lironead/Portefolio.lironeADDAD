@@ -4,194 +4,293 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio — Lirone ADDAD</title>
+
   <style>
     :root{
-      --bg:#0b0f19;
-      --card:rgba(255,255,255,.04);
-      --border:rgba(255,255,255,.10);
-      --text:#e5e7eb;
-      --muted:#9ca3af;
-      --brand:#60a5fa;
-      --brand2:#22c55e;
+      --bg:#f6f8fc;
+      --card:#ffffff;
+      --border: rgba(15,23,42,.12);
+      --text:#0f172a;
+      --muted:#475569;
+      --brand:#2563eb;
+      --brand2:#16a34a;
       --radius:18px;
-      --max:1050px;
-      --shadow:0 14px 40px rgba(0,0,0,.35);
+      --max:1180px;
+      --shadow: 0 14px 30px rgba(15,23,42,.10);
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1000px 700px at 15% 0%, rgba(96,165,250,.18), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,.12), transparent 55%),
+        radial-gradient(900px 520px at 10% 0%, rgba(37,99,235,.12), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(22,163,74,.10), transparent 55%),
         var(--bg);
-      line-height:1.55;
-    }
-    a{color:inherit}
-    .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
-    /* Topbar */
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,25,.72);
-      border-bottom:1px solid var(--border);
-    }
-    .topbar .inner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0; gap:14px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      text-decoration:none; font-weight:900; letter-spacing:.2px;
-    }
-    .logo{
-      width:36px; height:36px; border-radius:12px;
-      display:grid; place-items:center;
-      background: linear-gradient(135deg, rgba(96,165,250,.95), rgba(34,197,94,.85));
-      color:#071018;
-      box-shadow: 0 10px 22px rgba(0,0,0,.35);
-      font-weight:900;
-    }
-    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    nav a{
-      text-decoration:none;
-      color:var(--muted);
-      font-size:14px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-    }
-    nav a:hover{
-      color:var(--text);
-      border-color:var(--border);
-      background: rgba(255,255,255,.04);
+      line-height:1.7;
     }
 
-    /* Layout */
-    header{padding:42px 0 14px;}
-    main{padding:10px 0 52px;}
-    section{padding:20px 0;}
+    a{color:inherit;text-decoration:none}
+    strong{font-weight:900}
+
+    /* Aligné gauche, “site” */
+    .container{
+      max-width:var(--max);
+      margin:0;              /* pas centré */
+      padding:0 26px;        /* marge gauche propre */
+    }
+
+    header{padding:70px 0 34px;}
+    main{padding:0 0 90px;}
+    section{padding:46px 0;}
+    section + section{border-top:1px solid rgba(15,23,42,.06);}
+
     h1{
-      margin:0 0 10px;
-      font-size: clamp(28px, 4vw, 44px);
-      letter-spacing:-.7px;
+      margin:0 0 12px;
+      font-size: clamp(34px, 4vw, 52px);
+      letter-spacing:-.9px;
       line-height:1.1;
     }
+
     h2{
-      margin:0 0 12px;
-      font-size:18px;
+      margin:0 0 16px;
+      font-size:24px;
       letter-spacing:-.2px;
-      color:var(--text);
     }
-    .sub{margin:0; color:var(--muted); max-width:62ch}
-    .grid{display:grid; gap:16px;}
-    .grid-2{grid-template-columns: 1.2fr .8fr;}
-    .grid-3{grid-template-columns: repeat(3, 1fr);}
-    .card{
-      border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
+
+    .kicker{
+      font-weight:900;
+      color:var(--brand);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+      margin-bottom:10px;
     }
-    .p{padding:18px;}
-    .pill-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:7px 11px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      font-size:13px;
-      color:var(--muted);
+
+    /* Topbar */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(246,248,252,.86);
+      border-bottom:1px solid var(--border);
     }
-    .dot{width:8px; height:8px; border-radius:999px; background:var(--brand);}
-    .dot.g{background:var(--brand2);}
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
-    .btn{
-      appearance:none; border:0; cursor:pointer;
-      padding:10px 14px;
-      border-radius:14px;
-      font-weight:800;
-      text-decoration:none;
-      display:inline-flex; align-items:center; justify-content:center;
+
+    .topbar .inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 0;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+
+    .logo{
+      width:38px;height:38px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color:white;
+      font-weight:900;
+      box-shadow:0 10px 22px rgba(0,0,0,.15);
+    }
+
+    nav{
+      display:flex;
       gap:10px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:var(--muted);
+      font-size:14px;
+      padding:8px 12px;
+      border-radius:12px;
+    }
+
+    nav a:hover{
+      color:var(--text);
+      background: rgba(15,23,42,.05);
+    }
+
+    /* Grids */
+    .grid{display:grid;gap:20px;}
+    .grid-2{grid-template-columns:1.25fr .75fr;}
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+    .grid-4{grid-template-columns:repeat(4,1fr);}
+
+    /* Cards */
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .p{padding:26px;}
+
+    .sub{color:var(--muted);max-width:75ch;margin:0}
+    .muted{color:var(--muted)}
+
+    /* Pills */
+    .pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .pill{
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:13px;
+      background:rgba(15,23,42,.04);
+      border:1px solid var(--border);
+      color:var(--muted);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--brand)}
+    .dot.g{background:var(--brand2)}
+
+    /* Boutons */
+    .actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+    .btn{
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:900;
+      cursor:pointer;
+      border:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      user-select:none;
     }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(96,165,250,.95), rgba(34,197,94,.85));
-      color:#071018;
-      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      background:linear-gradient(135deg, var(--brand), var(--brand2));
+      color:white;
+      box-shadow:0 16px 32px rgba(0,0,0,.18);
     }
     .btn.ghost{
-      background: rgba(255,255,255,.04);
+      background:rgba(15,23,42,.05);
       border:1px solid var(--border);
       color:var(--text);
     }
-    .btn:hover{transform: translateY(-1px)}
-    .btn:active{transform: translateY(0px)}
-    .muted{color:var(--muted)}
-    .list{margin:10px 0 0; padding-left:18px; color:var(--muted)}
-    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
-    .chip{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      padding:7px 10px;
-      border-radius: 999px;
-      font-size:13px;
-      color:var(--text);
-    }
+
+    /* Items */
     .item{
-      padding:16px;
+      padding:20px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:0 10px 24px rgba(15,23,42,.06);
+    }
+    .item h3{margin:0 0 8px;font-size:16px}
+    .item p{margin:0;color:var(--muted)}
+
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .meta span{
+      font-size:13px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(15,23,42,.04);
+      color:var(--text);
+    }
+
+    .list{margin:12px 0 0;padding-left:18px;color:var(--muted)}
+    .list li{margin:6px 0}
+
+    /* Timeline (expérience) */
+    .timeline{display:grid;gap:14px}
+    .tl{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:16px;
+      padding:18px;
       border:1px solid var(--border);
       border-radius: var(--radius);
-      background: rgba(15,23,42,.55);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 10px 24px rgba(15,23,42,.05);
     }
-    .item h3{margin:0 0 6px; font-size:15px}
-    .item p{margin:0; color:var(--muted); font-size:14px}
-    .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; color:var(--muted); font-size:13px;}
-    .meta span{
+    .tl .when{
+      font-weight:900;
+      color:var(--text);
+    }
+    .tl .where{
+      color:var(--muted);
+      margin-top:6px;
+      font-size:13px;
+    }
+
+    /* Tabs BTS */
+    .tabs{display:flex;gap:10px;flex-wrap:wrap}
+    .tab-btn{
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:900;
       border:1px solid var(--border);
-      padding:6px 9px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.03);
+      background:rgba(15,23,42,.04);
+      color:var(--muted);
+      cursor:pointer;
+    }
+    .tab-btn[aria-selected="true"]{
+      background:linear-gradient(135deg, var(--brand), var(--brand2));
+      color:white;
+      border:none;
+    }
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    /* Bloc “note” */
+    .note{
+      padding:16px 18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(37,99,235,.25);
+      background: rgba(37,99,235,.06);
+      color: var(--text);
     }
 
     /* Contact */
-    form{display:grid; gap:10px}
-    input, textarea{
-      width:100%;
-      padding:12px 12px;
+    form{display:grid;gap:12px}
+    input,textarea{
+      padding:12px;
       border-radius:14px;
       border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      outline:none;
       font-size:14px;
+      outline:none;
+      background:#fff;
     }
-    textarea{min-height:110px; resize:vertical}
     input:focus, textarea:focus{
-      border-color: rgba(96,165,250,.55);
-      box-shadow: 0 0 0 4px rgba(96,165,250,.12);
+      border-color: rgba(37,99,235,.45);
+      box-shadow: 0 0 0 4px rgba(37,99,235,.10);
     }
+    textarea{min-height:120px;resize:vertical}
 
     footer{
       border-top:1px solid var(--border);
-      padding:18px 0 28px;
+      padding:26px 0;
       color:var(--muted);
       font-size:13px;
     }
 
-    @media (max-width: 980px){
+    @media (max-width:980px){
       nav{display:none}
-      .grid-2{grid-template-columns:1fr}
-      .grid-3{grid-template-columns:1fr}
+      .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+      .tl{grid-template-columns:1fr}
     }
   </style>
 </head>
 
-<body>
+<body id="top">
+
   <div class="topbar">
     <div class="container">
       <div class="inner">
@@ -203,51 +302,100 @@
           <a href="#apropos">À propos</a>
           <a href="#competences">Compétences</a>
           <a href="#experience">Expérience</a>
-          <a href="#certifs">Certifs</a>
           <a href="#bts">BTS SIO</a>
           <a href="#projets">Projets</a>
           <a href="#veille">Veille</a>
+          <a href="#docs">Docs</a>
           <a href="#contact">Contact</a>
         </nav>
       </div>
     </div>
   </div>
 
-  <a id="top"></a>
   <header>
     <div class="container">
       <div class="grid grid-2">
         <div class="card">
           <div class="p">
+            <div class="kicker">Portfolio — BTS SIO (SISR)</div>
             <h1>Lirone ADDAD</h1>
-            <p class="sub">BTS SIO (2e année) • Portfolio SISR — clair, rapide, sans blabla.</p>
+            <p class="sub">
+              Étudiant en <strong>BTS SIO 2e année</strong> (option <strong>SISR</strong>).
+              Je travaille l’<strong>administration systèmes & réseaux</strong>, la <strong>sécurité</strong>,
+              et la mise en place de services (DNS/DHCP, AD, VPN, serveur web).
+            </p>
 
             <div class="pill-row">
-              <span class="pill"><span class="dot"></span> Systèmes & Réseaux</span>
+              <span class="pill"><span class="dot"></span> Systèmes</span>
+              <span class="pill"><span class="dot"></span> Réseaux</span>
               <span class="pill"><span class="dot g"></span> Sécurité</span>
               <span class="pill"><span class="dot"></span> Support</span>
+              <span class="pill"><span class="dot"></span> Documentation</span>
             </div>
 
             <div class="actions">
-              <a class="btn primary" href="#projets">Projets</a>
+              <a class="btn primary" href="#projets">Voir mes projets</a>
+              <a class="btn ghost" href="#experience">Expérience</a>
               <a class="btn ghost" href="#contact">Contact</a>
+            </div>
+
+            <div style="height:14px"></div>
+            <div class="note">
+              Objectif : évoluer vers un poste <strong>technicien/administrateur systèmes & réseaux</strong> avec une dimension <strong>cybersécurité</strong>.
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="p">
-            <h2>Infos</h2>
-            <p class="muted" style="margin:0">
-              Ville : <strong style="color:var(--text)">Saint-Brice</strong><br>
-              Email : <strong style="color:var(--text)">Lirone9955@gmail.com</strong><br>
-              Git/LinkedIn : <strong style="color:var(--text)">à compléter</strong>
+            <h2>Infos rapides</h2>
+            <p class="sub">
+              📍 <strong>Saint-Brice</strong><br>
+              📧 <strong>lirone9955@gmail.com</strong><br>
+              📱 <strong>07 83 10 68 65</strong><br>
+              🔗 Git / LinkedIn : <strong>à compléter</strong>
             </p>
-            <div class="chips">
-              <span class="chip">Alternance</span>
-              <span class="chip">SISR</span>
-              <span class="chip">Lab perso</span>
+
+            <div style="height:14px"></div>
+
+            <div class="grid grid-2">
+              <div class="item">
+                <h3>Atouts</h3>
+                <ul class="list">
+                  <li>Rigueur & documentation</li>
+                  <li>Diagnostic & résolution</li>
+                  <li>Lab perso / autonomie</li>
+                </ul>
+              </div>
+              <div class="item">
+                <h3>Outils</h3>
+                <ul class="list">
+                  <li>VS Code / Git</li>
+                  <li>VirtualBox / VMware</li>
+                  <li>Wireshark</li>
+                </ul>
+              </div>
             </div>
+
+            <div style="height:14px"></div>
+            <div class="actions">
+  <a class="btn primary"
+   href="https://lironead.github.io/Portefolio.lironeADDAD/cv.pdf"
+   download="CV_Lirone_ADDAD.pdf">
+  Télécharger mon CV
+</a>
+
+<a class="btn ghost"
+   href="https://lironead.github.io/Portefolio.lironeADDAD/cv.pdf"
+   target="_blank" rel="noopener">
+  Voir le CV
+</a>
+
+  <a class="btn ghost" href="#docs">
+    Voir mes docs
+  </a>
+</div>
+
           </div>
         </div>
       </div>
@@ -255,38 +403,87 @@
   </header>
 
   <main>
+
     <section id="apropos">
       <div class="container">
         <h2>À propos</h2>
-        <div class="card"><div class="p">
-          <p class="muted" style="margin:0; max-width:80ch">
-            Je m’appelle Lirone ADDAD, étudiant en 2e année de BTS SIO (option SISR). Je me forme à l’administration systèmes et réseaux et à la sécurisation d’infrastructures.
-J’aime mettre en place des services (DNS/DHCP, Active Directory, serveur web, VPN), diagnostiquer des incidents et documenter proprement (procédures, schémas).
-Objectif : évoluer vers un poste administrateur systèmes/réseaux (avec une dimension sécurité).
-          </p>
-        </div></div>
+        <div class="grid grid-2">
+          <div class="card"><div class="p">
+            <p class="sub">
+              Je m’appelle <strong>Lirone ADDAD</strong>. Je suis en <strong>BTS SIO option SISR</strong> et je me forme à :
+              l’<strong>administration Windows/Linux</strong>, la <strong>configuration réseau</strong>, la <strong>sécurisation</strong> et le <strong>support</strong>.
+            </p>
+            <div style="height:12px"></div>
+            <p class="sub">
+              Ce portfolio présente mes compétences, mes projets, ma veille et ma capacité à <strong>documenter</strong> (procédures, schémas, analyses).
+            </p>
+          </div></div>
+
+          <div class="card"><div class="p">
+            <h3 style="margin:0 0 10px">Ce que je sais faire (concret)</h3>
+            <ul class="list">
+              <li>Déployer et configurer des services : DNS, DHCP, AD, serveur web</li>
+              <li>Segmenter et diagnostiquer un réseau : IP, VLAN, routage, analyse trafic</li>
+              <li>Sécuriser : firewall (pfSense), règles, VPN, bonnes pratiques</li>
+              <li>Documenter : procédures, comptes rendus, schémas</li>
+            </ul>
+          </div></div>
+        </div>
       </div>
     </section>
 
     <section id="competences">
       <div class="container">
-        <h2>Compétences</h2>
+        <h2>Compétences détaillées</h2>
+
         <div class="grid grid-3">
           <div class="item">
-            <h3>Réseau</h3>
-            <p>IP, VLAN, DNS/DHCP, diag.</p>
-            <div class="meta"><span>TCP/IP</span><span>Wireshark</span></div>
+            <h3>Réseaux</h3>
+            <p>Adressage, segmentation, services réseau, dépannage.</p>
+            <div class="meta">
+              <span>TCP/IP</span><span>DNS</span><span>DHCP</span><span>VLAN</span><span>Wireshark</span>
+            </div>
+            <ul class="list">
+              <li>Configuration IP, passerelle, DNS</li>
+              <li>Compréhension des flux et troubleshooting</li>
+              <li>Analyse de trafic (captures, filtres)</li>
+            </ul>
           </div>
+
           <div class="item">
             <h3>Systèmes</h3>
-            <p>Linux/Windows, services.</p>
-            <div class="meta"><span>Debian</span><span>Windows</span></div>
+            <p>Administration Windows/Linux, gestion comptes, services.</p>
+            <div class="meta">
+              <span>Debian</span><span>Windows</span><span>Services</span><span>Scripts</span>
+            </div>
+            <ul class="list">
+              <li>Gestion utilisateurs/droits</li>
+              <li>Installation + configuration services</li>
+              <li>Maintenance et mises à jour</li>
+            </ul>
           </div>
+
           <div class="item">
             <h3>Sécurité</h3>
-            <p>Firewall, VPN, règles.</p>
-            <div class="meta"><span>pfSense</span><span>VPN</span></div>
+            <p>Contrôle d’accès réseau, VPN, règles firewall.</p>
+            <div class="meta">
+              <span>pfSense</span><span>VPN</span><span>Règles</span><span>Segmentation</span>
+            </div>
+            <ul class="list">
+              <li>Filtrage entrant/sortant</li>
+              <li>Accès distant sécurisé (VPN)</li>
+              <li>Bonnes pratiques (moindre privilège)</li>
+            </ul>
           </div>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <div class="grid grid-4">
+          <div class="item"><h3>Support</h3><p>Diagnostic, tickets, procédures.</p></div>
+          <div class="item"><h3>Virtualisation</h3><p>VM, snapshots, réseaux virtuels.</p></div>
+          <div class="item"><h3>Documentation</h3><p>Procédures, schémas, synthèses.</p></div>
+          <div class="item"><h3>Outils</h3><p>Git, VS Code, outils réseau.</p></div>
         </div>
       </div>
     </section>
@@ -294,139 +491,184 @@ Objectif : évoluer vers un poste administrateur systèmes/réseaux (avec une di
     <section id="experience">
       <div class="container">
         <h2>Expérience</h2>
-        <div class="grid">
-          <div class="item">
-            <h3>Alternance — Entreprise (AAAA–AAAA)</h3>
-            <p>3 bullets max : support, admin, projet.</p>
-            <ul class="list">
-              <li>Ex : Support N1/N2 + préparation postes</li>
-              <li>Ex : gestion comptes/droits + documentation</li>
-              <li>Ex : participation projet réseau/sécurité</li>
-            </ul>
-          </div>
-          <div class="item">
-            <h3>Stage — Entreprise (AAAA)</h3>
-            <p>Résultat concret + ce que tu as livré.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="certifs">
-      <div class="container">
-        <h2>Certifications</h2>
-        <div class="grid grid-3">
-          <div class="item"><h3>SecNumAcadémie</h3><p>AAAA — à compléter</p></div>
-          <div class="item"><h3>Certification 2</h3><p>AAAA — à compléter</p></div>
-          <div class="item"><h3>Certification 3</h3><p>AAAA — à compléter</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="bts">
-  <div class="container">
-    <h2>BTS SIO</h2>
-
-    <div class="card">
-      <div class="p">
-        <div class="tabs" role="tablist" aria-label="Onglets BTS SIO">
-          <button class="tab-btn" role="tab" id="tab-slam" aria-controls="panel-slam" aria-selected="false" type="button">
-            Option SLAM
-          </button>
-          <button class="tab-btn" role="tab" id="tab-sisr" aria-controls="panel-sisr" aria-selected="true" type="button">
-            Option SISR
-          </button>
-          <button class="tab-btn" role="tab" id="tab-deb" aria-controls="panel-deb" aria-selected="false" type="button">
-            Débouchés
-          </button>
-        </div>
-
-        <div style="height:14px"></div>
-
-        <div class="tab-panel" id="panel-slam" role="tabpanel" aria-labelledby="tab-slam">
-          <div class="item">
-            <h3>SLAM — Solutions Logicielles et Applications Métiers</h3>
-            <p class="muted" style="margin:0">
-              Option orientée <strong>développement</strong> : conception d’applications, programmation, bases de données,
-              et création de solutions adaptées aux besoins des utilisateurs.
-            </p>
-            <ul class="list">
-              <li>Développement d’applications (web / desktop)</li>
-              <li>Conception et gestion de bases de données</li>
-              <li>Tests, maintenance et évolution d’applications</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="tab-panel active" id="panel-sisr" role="tabpanel" aria-labelledby="tab-sisr">
-          <div class="item">
-            <h3>SISR — Solutions d’Infrastructure, Systèmes et Réseaux</h3>
-            <p class="muted" style="margin:0">
-              Option orientée <strong>infrastructure</strong> : administration systèmes, réseaux, services et
-              sécurisation des environnements informatiques.
-            </p>
-            <ul class="list">
-              <li>Administration systèmes (Linux / Windows)</li>
-              <li>Réseaux et services (DNS, DHCP, AD…)</li>
-              <li>Sécurité (pare-feu, VPN, segmentation)</li>
-              <li>Supervision et documentation</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="tab-panel" id="panel-deb" role="tabpanel" aria-labelledby="tab-deb">
-          <div class="item">
-            <h3>Débouchés après un BTS SIO</h3>
-            <p class="muted" style="margin:0">
-              Le BTS SIO permet d’entrer sur le marché du travail ou de poursuivre en licence/bachelor.
-            </p>
-            <div class="grid grid-2" style="margin-top:12px">
-              <div class="item">
-                <h3>Débouchés SISR</h3>
-                <ul class="list">
-                  <li>Technicien systèmes et réseaux</li>
-                  <li>Administrateur systèmes / réseau (junior)</li>
-                  <li>Technicien support / exploitation</li>
-                  <li>Technicien cybersécurité (junior)</li>
-                </ul>
+        <div class="timeline">
+          <div class="tl">
+            <div>
+              <div class="when">Alternance — 2023 → 2025</div>
+              <div class="where">Entreprise : à compléter</div>
+            </div>
+            <div>
+              <h3 style="margin:0 0 8px">Missions principales</h3>
+              <ul class="list">
+                <li>Support utilisateurs (N1/N2), diagnostic et résolution d’incidents</li>
+                <li>Préparation et maintenance postes (mises à jour, logiciels, profils)</li>
+                <li>Gestion comptes/droits, participation à l’admin de l’infra</li>
+                <li>Documentation : procédures et comptes rendus d’intervention</li>
+              </ul>
+              <div class="meta">
+                <span>Support</span><span>Windows</span><span>Réseau</span><span>Doc</span>
               </div>
-              <div class="item">
-                <h3>Débouchés SLAM</h3>
-                <ul class="list">
-                  <li>Développeur web / applicatif (junior)</li>
-                  <li>Développeur logiciel</li>
-                  <li>Technicien applicatif</li>
-                  <li>Intégrateur d’applications</li>
-                </ul>
+            </div>
+          </div>
+
+          <div class="tl">
+            <div>
+              <div class="when">WordPress — 1ère année</div>
+              <div class="where">Petit projet en + de l’alternance</div>
+            </div>
+            <div>
+              <h3 style="margin:0 0 8px">Gestion WordPress (expérience complémentaire)</h3>
+              <ul class="list">
+                <li>Mise en place d’un site WordPress local (stack Docker/Portainer)</li>
+                <li>Gestion contenu, pages, médias, mise en forme</li>
+                <li>Logique “mini projet” : structuration, itérations, corrections</li>
+              </ul>
+              <div class="meta">
+                <span>WordPress</span><span>Docker</span><span>Portainer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl">
+            <div>
+              <div class="when">Intérim / jobs d’été</div>
+              <div class="where">Logistique</div>
+            </div>
+            <div>
+              <h3 style="margin:0 0 8px">Expérience terrain</h3>
+              <ul class="list">
+                <li>Rigueur, organisation, respect des consignes</li>
+                <li>Travail en équipe, cadence, fiabilité</li>
+              </ul>
+              <div class="meta">
+                <span>Organisation</span><span>Fiabilité</span><span>Équipe</span>
               </div>
             </div>
           </div>
         </div>
 
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+
+    <section id="bts">
+      <div class="container">
+        <h2>BTS SIO</h2>
+
+        <div class="card">
+          <div class="p">
+            <div class="tabs" role="tablist" aria-label="Onglets BTS SIO">
+              <button class="tab-btn" role="tab" id="tab-slam" aria-controls="panel-slam" aria-selected="false" type="button">Option SLAM</button>
+              <button class="tab-btn" role="tab" id="tab-sisr" aria-controls="panel-sisr" aria-selected="true" type="button">Option SISR</button>
+              <button class="tab-btn" role="tab" id="tab-deb" aria-controls="panel-deb" aria-selected="false" type="button">Débouchés</button>
+            </div>
+
+            <div style="height:16px"></div>
+
+            <div class="tab-panel" id="panel-slam" role="tabpanel" aria-labelledby="tab-slam">
+              <div class="item">
+                <h3>SLAM — Développement</h3>
+                <p class="muted">
+                  Conception d’applications, programmation, bases de données et solutions adaptées aux besoins métiers.
+                </p>
+                <ul class="list">
+                  <li>Applications web / desktop</li>
+                  <li>BDD, requêtes, conception</li>
+                  <li>Tests, maintenance et évolution</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tab-panel active" id="panel-sisr" role="tabpanel" aria-labelledby="tab-sisr">
+              <div class="item">
+                <h3>SISR — Infrastructure</h3>
+                <p class="muted">
+                  Administration systèmes et réseaux, déploiement de services, supervision et sécurisation.
+                </p>
+                <ul class="list">
+                  <li>Linux / Windows, services</li>
+                  <li>DNS, DHCP, AD, segmentation</li>
+                  <li>Sécurité : pare-feu, VPN</li>
+                  <li>Documentation et support</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="panel-deb" role="tabpanel" aria-labelledby="tab-deb">
+              <div class="item">
+                <h3>Débouchés</h3>
+                <div class="grid grid-2" style="margin-top:12px">
+                  <div class="item">
+                    <h3>SISR</h3>
+                    <ul class="list">
+                      <li>Technicien systèmes et réseaux</li>
+                      <li>Administrateur junior</li>
+                      <li>Technicien support / exploitation</li>
+                      <li>Cybersécurité (junior)</li>
+                    </ul>
+                  </div>
+                  <div class="item">
+                    <h3>SLAM</h3>
+                    <ul class="list">
+                      <li>Développeur web / applicatif</li>
+                      <li>Développeur logiciel</li>
+                      <li>Technicien applicatif</li>
+                      <li>Intégrateur</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <section id="projets">
       <div class="container">
-        <h2>Projets</h2>
+        <h2>Projets (exemples)</h2>
+
         <div class="grid grid-3">
           <div class="item">
-            <h3>Projet 1</h3>
-            <p>1 ligne : objectif + résultat.</p>
-            <div class="meta"><span>Tech 1</span><span>Tech 2</span></div>
+            <h3>Lab Réseau — VLAN & Services</h3>
+            <p>Mise en place d’un réseau segmenté + services (DNS/DHCP) et tests de connectivité.</p>
+            <div class="meta"><span>VLAN</span><span>DNS</span><span>DHCP</span><span>Diag</span></div>
+            <ul class="list">
+              <li>Plan d’adressage + segmentation</li>
+              <li>Tests : ping, résolution DNS, bail DHCP</li>
+              <li>Documentation des étapes</li>
+            </ul>
           </div>
+
           <div class="item">
-            <h3>Projet 2</h3>
-            <p>1 ligne : objectif + résultat.</p>
-            <div class="meta"><span>Tech 1</span><span>Tech 2</span></div>
+            <h3>pfSense — Pare-feu & VPN</h3>
+            <p>Configuration règles + accès distant sécurisé via VPN, contrôle des flux.</p>
+            <div class="meta"><span>pfSense</span><span>Firewall</span><span>VPN</span></div>
+            <ul class="list">
+              <li>Règles LAN/WAN</li>
+              <li>Logs & vérification trafic</li>
+              <li>Scénarios de sécurité</li>
+            </ul>
           </div>
+
           <div class="item">
-            <h3>Projet 3</h3>
-            <p>1 ligne : objectif + résultat.</p>
-            <div class="meta"><span>Tech 1</span><span>Tech 2</span></div>
+            <h3>Serveur Web — Déploiement</h3>
+            <p>Déploiement d’un serveur web et publication d’un site (portfolio).</p>
+            <div class="meta"><span>Web</span><span>Linux</span><span>Déploiement</span></div>
+            <ul class="list">
+              <li>Installation et configuration</li>
+              <li>Accès local / réseau</li>
+              <li>Structure du site</li>
+            </ul>
           </div>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <div class="note">
+          Remplace ces projets par les tiens. Le format est parfait : <strong>objectif</strong> → <strong>tech</strong> → <strong>résultat</strong> → <strong>preuves</strong> (captures, docs).
         </div>
       </div>
     </section>
@@ -434,15 +676,73 @@ Objectif : évoluer vers un poste administrateur systèmes/réseaux (avec une di
     <section id="veille">
       <div class="container">
         <h2>Veille technologique</h2>
+
         <div class="grid grid-2">
           <div class="item">
-            <h3>Thèmes</h3>
-            <p>2–4 thèmes max : CVE, hardening, réseau, cloud, etc.</p>
+            <h3>Thèmes suivis</h3>
+            <ul class="list">
+              <li>CVE / vulnérabilités et correctifs</li>
+              <li>Hardening Windows & Linux</li>
+              <li>Réseau : segmentation, VPN, bonnes pratiques</li>
+              <li>Cybersécurité : méthodes d’attaque/défense (niveau junior)</li>
+            </ul>
           </div>
+
           <div class="item">
-            <h3>Dernière synthèse</h3>
-            <p>Date + 4–5 lignes de résumé (ton analyse, pas du copié/collé).</p>
+            <h3>Synthèse (exemple)</h3>
+            <p class="muted">
+              <strong>Date :</strong> à compléter<br>
+              Résumé : 5–6 lignes de ce que tu as compris, l’impact, et ce que tu appliquerais en entreprise.
+            </p>
+            <ul class="list">
+              <li>Quel est le risque ?</li>
+              <li>Qui est impacté ?</li>
+              <li>Quelle mitigation ?</li>
+            </ul>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="docs">
+      <div class="container">
+        <h2>Documentation / Preuves</h2>
+
+        <div class="grid grid-3">
+          <div class="item">
+            <h3>Procédures</h3>
+            <p>Ex : installation service, config réseau, checklist.</p>
+            <ul class="list">
+              <li>Procédure DNS/DHCP</li>
+              <li>Procédure VPN</li>
+              <li>Procédure dépannage</li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <h3>Schémas</h3>
+            <p>Ex : topo réseau, segmentation, flux.</p>
+            <ul class="list">
+              <li>Schéma VLAN</li>
+              <li>Schéma DMZ</li>
+              <li>Flux VPN</li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <h3>Captures / Logs</h3>
+            <p>Ex : preuves de tests + résultats.</p>
+            <ul class="list">
+              <li>Ping / traceroute</li>
+              <li>Capture Wireshark</li>
+              <li>Logs firewall</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="height:18px"></div>
+        <div class="note">
+          Ici tu peux mettre des boutons “Voir PDF”, “Voir schéma”, “Voir capture”. Quand tu auras tes fichiers, je te fais la partie liens propre.
         </div>
       </div>
     </section>
@@ -450,27 +750,37 @@ Objectif : évoluer vers un poste administrateur systèmes/réseaux (avec une di
     <section id="contact">
       <div class="container">
         <h2>Contact</h2>
+
         <div class="grid grid-2">
           <div class="item">
             <h3>Coordonnées</h3>
             <p class="muted" style="margin:0">
-              Email : <strong style="color:var(--text)">Lirone9955@gmail.com</strong><br>
-              Téléphone : <strong style="color:var(--text)">0783106865</strong><br>
+              Email : <strong style="color:var(--text)">lirone9955@gmail.com</strong><br>
+              Téléphone : <strong style="color:var(--text)">07 83 10 68 65</strong><br>
               LinkedIn/Git : <strong style="color:var(--text)">à compléter</strong>
             </p>
+
+            <div style="height:12px"></div>
+            <div class="note">
+              Si tu veux un contact “vrai”, on peut brancher un backend (Node) ou un service.
+              Sinon, on garde en simple formulaire visuel.
+            </div>
           </div>
+
           <div class="item">
             <h3>Message</h3>
-            <form onsubmit="event.preventDefault(); alert('Formulaire statique : ajoute un backend si tu veux envoyer.');">
+            <form onsubmit="sendContactForm(event)">
               <input type="text" placeholder="Nom" required />
               <input type="email" placeholder="Email" required />
               <textarea placeholder="Message" required></textarea>
               <button class="btn primary" type="submit">Envoyer</button>
+              <div id="contact-confirm" role="status" style="display:none;margin-top:10px;color:var(--brand);font-weight:900;"></div>
             </form>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
@@ -481,6 +791,65 @@ Objectif : évoluer vers un poste administrateur systèmes/réseaux (avec une di
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Tabs BTS SIO
+    (function initTabs(){
+      const tabButtons = Array.from(document.querySelectorAll('.tab-btn[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('.tab-panel[role="tabpanel"]'));
+
+      function activateTab(btn){
+        const targetId = btn.getAttribute('aria-controls');
+        tabButtons.forEach(b => b.setAttribute('aria-selected', b === btn ? 'true' : 'false'));
+        panels.forEach(p => p.classList.toggle('active', p.id === targetId));
+      }
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => activateTab(btn));
+        btn.addEventListener('keydown', (e) => {
+          const i = tabButtons.indexOf(btn);
+          if(e.key === 'ArrowRight'){ e.preventDefault(); tabButtons[(i+1)%tabButtons.length].focus(); }
+          if(e.key === 'ArrowLeft'){ e.preventDefault(); tabButtons[(i-1+tabButtons.length)%tabButtons.length].focus(); }
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activateTab(btn); }
+        });
+      });
+
+      const preselected = tabButtons.find(b => b.getAttribute('aria-selected') === 'true') || tabButtons[0];
+      activateTab(preselected);
+    })();
+
+    function saveMessage(obj){
+      try{
+        const key = 'portfolio_messages';
+        const msgs = JSON.parse(localStorage.getItem(key) || '[]');
+        msgs.push(obj);
+        localStorage.setItem(key, JSON.stringify(msgs));
+      }catch(e){
+        console.error('Erreur stockage message', e);
+      }
+    }
+
+    async function sendContactForm(e){
+      e.preventDefault();
+      const form = e.target;
+      const name = form.querySelector('input[type="text"]').value.trim();
+      const email = form.querySelector('input[type="email"]').value.trim();
+      const message = form.querySelector('textarea').value.trim();
+
+      if(!name || !email || !message){
+        alert('Merci de remplir tous les champs.');
+        return;
+      }
+
+      saveMessage({ name, email, message, date: new Date().toISOString() });
+      form.reset();
+
+      const conf = document.getElementById('contact-confirm');
+      conf.style.display = 'block';
+      conf.textContent = 'Message enregistré localement (portfolio).';
+
+      setTimeout(()=>{ conf.style.display = 'none'; }, 6000);
+    }
   </script>
+
 </body>
 </html>
