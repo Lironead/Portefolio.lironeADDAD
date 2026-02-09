@@ -206,8 +206,6 @@
 
     /* Décale le contenu (compact) */
     .page{ margin-left: var(--sideW); transition: margin-left .26s var(--ease); }
-    /* on laisse plus de place au texte: on ne décale PAS jusqu’à sideWOpen */
-    /* (menu vient “au-dessus” quand il s’ouvre) */
 
     header{padding:70px 0 34px;}
     main{padding:0 0 90px;}
@@ -471,7 +469,7 @@
       margin-bottom:8px;
     }
     .company-logo{
-      width:44px;height:44px;           /* réduit */
+      width:80px;height:80px;           /* réduit */
       border-radius:14px;
       display:grid;
       place-items:center;
@@ -631,6 +629,94 @@
     @media (prefers-reduced-motion: reduce){
       *{transition:none !important; animation:none !important;}
     }
+
+    /* ====== PROJETS (cartes comme sur l'image) ====== */
+    .project-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:20px;
+    }
+
+    .project-card{
+      background: linear-gradient(180deg, rgba(248,250,252,.96), rgba(248,250,252,1));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), border-color var(--t) var(--ease);
+      position:relative;
+    }
+    .project-card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:3px;
+      background: linear-gradient(90deg, var(--brand), var(--brand2), var(--brand3));
+      opacity:.85;
+      z-index:1;
+    }
+    .project-card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(15,23,42,.14);
+      border-color: rgba(37,99,235,.18);
+    }
+
+    .project-media{
+      height:130px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-bottom:1px solid rgba(15,23,42,.06);
+    }
+    .project-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .project-body{
+      padding:18px 18px 16px;
+    }
+    .project-body h3{
+      margin:0 0 8px;
+      font-size:16px;
+    }
+    .project-body p{
+      margin:0;
+      color: var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    .project-tags{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .project-tag{
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      background: rgba(37,99,235,.10);
+      border:1px solid rgba(37,99,235,.16);
+      color: #1f3b87;
+    }
+
+    .project-action{
+      padding:16px 18px 18px;
+      border-top:1px solid rgba(15,23,42,.06);
+    }
+
+    .project-action .btn{
+      width:100%;
+    }
+
+    @media (max-width:980px){
+      .project-grid{ grid-template-columns:1fr; }
+    }
   </style>
 </head>
 
@@ -758,7 +844,6 @@
             <div class="p">
               <h2>Infos rapides</h2>
 
-              <!-- Moins bordélique: on “respire” -->
               <div class="item" style="padding:16px;">
                 <div class="grid" style="gap:8px;">
                   <div class="muted"><strong>📍</strong> Saint-Brice</div>
@@ -849,18 +934,19 @@
           <h2>Compétences détaillées</h2>
 
           <div class="actions" style="margin-top:10px; margin-bottom:18px;">
-  <a class="btn primary"
-     href="tableau_competences.pdf"
-     download>
-    Télécharger le tableau de compétences (PDF)
-  </a>
+            <a class="btn primary"
+               href="tableau_competences.pdf"
+               download>
+              Télécharger le tableau de compétences (PDF)
+            </a>
 
-  <a class="btn ghost"
-     href="tableau_competences.pdf"
-     target="_blank" rel="noopener">
-    Ouvrir le tableau
-  </a>
-</div>
+            <a class="btn ghost"
+               href="tableau_competences.pdf"
+               target="_blank" rel="noopener">
+              Ouvrir le tableau
+            </a>
+          </div>
+
           <div class="grid grid-3">
             <div class="item">
               <h3>Réseaux</h3>
@@ -985,7 +1071,6 @@
 
               <div class="company">
                 <div class="company-logo" aria-label="Logo Xanlite">
-                  <!-- Mets ton fichier logo à côté du HTML (ou change le chemin) -->
                   <img src="téléchargement.png" alt="Xanlite" />
                 </div>
                 <div>
@@ -1129,50 +1214,147 @@
         </div>
       </section>
 
+      <!-- ====== PROJETS (version cartes avec images + tags + bouton) ====== -->
       <section id="projets">
         <div class="container">
-          <h2>Projets (exemples)</h2>
+          <h2>Projets</h2>
 
-          <div class="grid grid-3">
-            <div class="item">
-              <h3>Lab Réseau — VLAN & Services</h3>
-              <p>Mise en place d’un réseau segmenté + services (DNS/DHCP) et tests de connectivité.</p>
-              <div class="meta"><span>VLAN</span><span>DNS</span><span>DHCP</span><span>Diag</span></div>
-              <ul class="list">
-                <li>Plan d’adressage + segmentation</li>
-                <li>Tests : ping, résolution DNS, bail DHCP</li>
-                <li>Documentation des étapes</li>
-              </ul>
-            </div>
+          <div class="project-grid">
 
-            <div class="item">
-              <h3>pfSense — Pare-feu & VPN</h3>
-              <p>Configuration règles + accès distant sécurisé via VPN, contrôle des flux.</p>
-              <div class="meta"><span>pfSense</span><span>Firewall</span><span>VPN</span></div>
-              <ul class="list">
-                <li>Règles LAN/WAN</li>
-                <li>Logs & vérification trafic</li>
-                <li>Scénarios de sécurité</li>
-              </ul>
-            </div>
+            <!-- PROJET 1 -->
+            <article class="project-card">
+              <div class="project-media">
+                <img src="projets/glpi.png" alt="Mise en place GLPI" />
+              </div>
 
-            <div class="item">
-              <h3>Serveur Web — Déploiement</h3>
-              <p>Déploiement d’un serveur web et publication d’un site (portfolio).</p>
-              <div class="meta"><span>Web</span><span>Linux</span><span>Déploiement</span></div>
-              <ul class="list">
-                <li>Installation et configuration</li>
-                <li>Accès local / réseau</li>
-                <li>Structure du site</li>
-              </ul>
-            </div>
+              <div class="project-body">
+                <h3>Mise en place GLPI</h3>
+                <p>Installation et configuration d’un serveur de gestion de parc et ticketing pour le suivi des incidents.</p>
+
+                <div class="project-tags">
+                  <span class="project-tag">Linux</span>
+                  <span class="project-tag">GLPI</span>
+                  <span class="project-tag">Apache</span>
+                </div>
+              </div>
+
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+              </div>
+            </article>
+
+            <!-- PROJET 2 -->
+            <article class="project-card">
+              <div class="project-media">
+                <img src="projets/ad.png" alt="Active Directory" />
+              </div>
+
+              <div class="project-body">
+                <h3>Active Directory</h3>
+                <p>Création d’un domaine Windows, gestion des utilisateurs, GPO et scripts d’ouverture de session.</p>
+
+                <div class="project-tags">
+                  <span class="project-tag">Windows Server</span>
+                  <span class="project-tag">AD DS</span>
+                  <span class="project-tag">PowerShell</span>
+                </div>
+              </div>
+
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+              </div>
+            </article>
+
+            <!-- PROJET 3 -->
+            <article class="project-card">
+              <div class="project-media">
+                <img src="projets/pfsense.png" alt="Sécurité Réseau pfSense" />
+              </div>
+
+              <div class="project-body">
+                <h3>Sécurité Réseau</h3>
+                <p>Mise en place d’un pare-feu pfSense, filtrage des paquets et configuration VPN.</p>
+
+                <div class="project-tags">
+                  <span class="project-tag">Réseau</span>
+                  <span class="project-tag">pfSense</span>
+                  <span class="project-tag">Sécurité</span>
+                </div>
+              </div>
+
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+              </div>
+            </article>
+
+            <!-- PROJET 4 -->
+            <article class="project-card">
+              <div class="project-media">
+                <img src="projets/postfix.png" alt="Serveur de messagerie Postfix" />
+              </div>
+
+              <div class="project-body">
+                <h3>Serveur de messagerie</h3>
+                <p>Mise en place d’une infrastructure mail complète sous Linux et configuration client.</p>
+
+                <div class="project-tags">
+                  <span class="project-tag">Postfix</span>
+                  <span class="project-tag">Dovecot</span>
+                  <span class="project-tag">Thunderbird</span>
+                </div>
+              </div>
+
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+              </div>
+            </article>
+
+            <!-- PROJET 5 -->
+            <article class="project-card">
+              <div class="project-media">
+                <img src="projets/openvpn.png" alt="Infrastructure VPN OpenVPN" />
+              </div>
+
+              <div class="project-body">
+                <h3>Infrastructure VPN</h3>
+                <p>Déploiement d’un serveur OpenVPN et gestion des certificats pour un accès distant sécurisé.</p>
+
+                <div class="project-tags">
+                  <span class="project-tag">OpenVPN</span>
+                  <span class="project-tag">EasyRSA</span>
+                  <span class="project-tag">Linux</span>
+                </div>
+              </div>
+
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+              </div>
+            </article>
+
+            <!-- PROJET 6 -->
+            <article class="project-card">
+              <div class="project-media">
+                <img src="projets/infra.png" alt="Infrastructure Globale" />
+              </div>
+
+              <div class="project-body">
+                <h3>Infrastructure Globale</h3>
+                <p>Synthèse BTS SIO : conception et interconnexion des services (AD, GLPI, pfSense, VPN…).</p>
+
+                <div class="project-tags">
+                  <span class="project-tag">Architecture</span>
+                  <span class="project-tag">Intégration</span>
+                  <span class="project-tag">Sécurité</span>
+                </div>
+              </div>
+
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+              </div>
+            </article>
+
           </div>
 
-          <div style="height:18px"></div>
-
-          <div class="note">
-            Remplace ces projets par les tiens. Le format est parfait : <strong>objectif</strong> → <strong>tech</strong> → <strong>résultat</strong> → <strong>preuves</strong> (captures, docs).
-          </div>
         </div>
       </section>
 
