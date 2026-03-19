@@ -1,20 +1,18 @@
-<!doctype html>
+ï»¿<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portfolio — Lirone ADDAD</title>
+  <title>Portfolio â€” Lirone ADDAD</title>
 
   <style>
     :root{
-      /* Thème plus simple, ni trop clair ni trop sombre */
       --bg:#eef2f7;
       --card:#f8fafc;
       --border: rgba(15,23,42,.14);
       --text:#0b1220;
       --muted:#445268;
 
-      /* Accents */
       --brand:#2563eb;
       --brand2:#16a34a;
       --brand3:#7c3aed;
@@ -27,15 +25,18 @@
       --max:1180px;
       --shadow: 0 14px 30px rgba(15,23,42,.12);
 
-      /* Menu (compact + expand au hover) */
-      --sideW: 70px;          /* compact par défaut */
-      --sideWOpen: 190px;     /* largeur quand hover */
+      --sideW: 70px;
+      --sideWOpen: 190px;
       --ease: cubic-bezier(.2,.8,.2,1);
       --t: .22s;
+
+      --ring: 0 0 0 4px rgba(37,99,235,.12);
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth; width:100%}
+    body{width:100%; overflow-x:hidden}
 
     body{
       margin:0;
@@ -54,11 +55,24 @@
 
     .container{
       max-width:var(--max);
-      margin:0;
+      margin:0 auto;
       padding:0 26px;
+      width:100%;
     }
 
-    /* ====== MENU LATÉRAL (icônes + label au hover) ====== */
+    /* ====== PROGRESS BAR ====== */
+    .progress{
+      position:fixed;
+      inset:0 0 auto 0;
+      height:3px;
+      background: linear-gradient(90deg, var(--brand), var(--brand2), var(--brand3));
+      transform-origin:left;
+      transform: scaleX(0);
+      z-index:80;
+      opacity:.9;
+    }
+
+    /* ====== MENU LATÃ‰RAL ====== */
     .sidebar{
       position:fixed;
       inset:0 auto 0 0;
@@ -114,7 +128,6 @@
     }
     .brand:hover .logo{ transform: rotate(-2deg) scale(1.02); }
 
-    /* texte du brand: caché tant que sidebar pas hover */
     .brand .brand-text{
       white-space:nowrap;
       opacity:0;
@@ -154,7 +167,6 @@
       gap:10px;
     }
 
-    /* petite ligne glow */
     .side-nav a::after{
       content:"";
       position:absolute;
@@ -176,11 +188,10 @@
     .side-nav a:active{ transform: translateX(4px) scale(.99); box-shadow:none; }
     .side-nav a:focus-visible{
       outline:none;
-      box-shadow: 0 0 0 4px rgba(37,99,235,.16);
+      box-shadow: var(--ring);
       border-color: rgba(37,99,235,.35);
     }
 
-    /* Icônes (SVG inline) */
     .ico{
       width:22px;height:22px;
       flex:0 0 auto;
@@ -190,7 +201,6 @@
     }
     .side-nav a:hover .ico{ transform: scale(1.08); opacity:1; }
 
-    /* Label masqué tant que sidebar pas hover */
     .side-nav .label{
       white-space:nowrap;
       opacity:0;
@@ -204,24 +214,35 @@
       pointer-events:auto;
     }
 
-    /* Décale le contenu (compact) */
     .page{ margin-left: var(--sideW); transition: margin-left .26s var(--ease); }
 
-    header{padding:70px 0 34px;}
+    header{padding:70px 0 24px;}
     main{padding:0 0 90px;}
-    section{padding:46px 0;}
+    section{padding:42px 0;}
     section + section{border-top:1px solid rgba(15,23,42,.06);}
 
-    h1{
-      margin:0 0 12px;
-      font-size: clamp(34px, 4vw, 52px);
-      letter-spacing:-.9px;
-      line-height:1.1;
-      animation: fadeUp .55s var(--ease) both;
+    /* ====== HERO ====== */
+    .hero{
+      position:relative;
+      overflow:hidden;
     }
-    @keyframes fadeUp{
-      from{opacity:0; transform:translateY(10px)}
-      to{opacity:1; transform:translateY(0)}
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-20% -25%;
+      background:
+        radial-gradient(420px 260px at 20% 10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(420px 260px at 85% 20%, rgba(22,163,74,.12), transparent 60%),
+        radial-gradient(420px 260px at 30% 95%, rgba(124,58,237,.10), transparent 60%);
+      pointer-events:none;
+      filter: blur(2px);
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(34px, 4vw, 56px);
+      letter-spacing:-1.0px;
+      line-height:1.08;
     }
 
     h2{
@@ -244,20 +265,16 @@
       font-weight:900;
       color:var(--brand);
       text-transform:uppercase;
-      letter-spacing:.08em;
+      letter-spacing:.10em;
       font-size:12px;
       margin-bottom:10px;
-      animation: fadeUp .55s var(--ease) both;
-      animation-delay:.06s;
     }
 
-    /* Grids */
     .grid{display:grid;gap:20px;}
     .grid-2{grid-template-columns:1.25fr .75fr;}
     .grid-3{grid-template-columns:repeat(3,1fr);}
     .grid-4{grid-template-columns:repeat(4,1fr);}
 
-    /* Cards */
     .card{
       background: linear-gradient(180deg, rgba(248,250,252,.96), rgba(248,250,252,1));
       border:1px solid var(--border);
@@ -266,6 +283,7 @@
       transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), border-color var(--t) var(--ease);
       position:relative;
       overflow:hidden;
+      max-width:100%;
     }
     .card::before{
       content:"";
@@ -282,11 +300,9 @@
     }
     .p{padding:26px;}
 
-    .sub{color:var(--muted);max-width:75ch;margin:0}
-    .muted{color:var(--muted)}
+    .sub{color:var(--muted);max-width:78ch;margin:0}
 
-    /* Pills */
-    .pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
     .pill{
       padding:7px 12px;
       border-radius:999px;
@@ -303,8 +319,7 @@
     .dot{width:8px;height:8px;border-radius:999px;background:var(--brand)}
     .dot.g{background:var(--brand2)}
 
-    /* Boutons */
-    .actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+    .actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
     .btn{
       padding:12px 16px;
       border-radius:14px;
@@ -319,6 +334,7 @@
       transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), filter var(--t) var(--ease);
       position:relative;
       overflow:hidden;
+      will-change: transform;
     }
     .btn::after{
       content:"";
@@ -347,7 +363,6 @@
     }
     .btn.ghost:hover{ box-shadow: 0 12px 26px rgba(15,23,42,.10); }
 
-    /* Items */
     .item{
       padding:20px;
       background: linear-gradient(180deg, rgba(248,250,252,.96), rgba(248,250,252,1));
@@ -357,6 +372,12 @@
       transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), border-color var(--t) var(--ease);
       position:relative;
       overflow:hidden;
+      max-width:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
     }
     .item::before{
       content:"";
@@ -386,10 +407,40 @@
     }
     .meta span:hover{ transform: translateY(-2px); background: rgba(22,163,74,.10); }
 
-    .list{margin:12px 0 0;padding-left:18px;color:var(--muted)}
+    .list{margin:12px 0 0;padding-left:18px;color:var(--muted);list-style:none}
     .list li{margin:6px 0}
 
-    /* Timeline */
+    /* ====== DETAILS (remplace les notes envahissantes) ====== */
+    details.details{
+      margin-top:14px;
+      border:1px solid rgba(37,99,235,.20);
+      background: rgba(37,99,235,.06);
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+    details.details > summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    details.details > summary::-webkit-details-marker{display:none}
+    details.details > summary:focus-visible{ outline:none; box-shadow: var(--ring); }
+    .chev{
+      width:18px;height:18px; flex:0 0 auto;
+      transition: transform .2s var(--ease);
+    }
+    details[open] .chev{ transform: rotate(180deg); }
+    details.details .details-body{
+      padding:0 16px 14px;
+      color:var(--muted);
+    }
+
+    /* ====== Timeline ====== */
     .timeline{display:grid;gap:14px}
     .tl{
       display:grid;
@@ -403,6 +454,7 @@
       transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), border-color var(--t) var(--ease);
       position:relative;
       overflow:hidden;
+      max-width:100%;
     }
     .tl::before{
       content:"";
@@ -420,7 +472,67 @@
     .tl .when{font-weight:900;color:var(--text);}
     .tl .where{color:var(--muted);margin-top:6px;font-size:13px;}
 
-    /* Tabs BTS */
+    /* ====== Vertical experience timeline ====== */
+    .experience-timeline{
+      position:relative;
+      padding:20px 0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:24px;
+    }
+    .experience-timeline::before{
+      content:'';
+      position:absolute;
+      left:50%;
+      top:0;
+      bottom:0;
+      width:2px;
+      background: var(--brand);
+      transform: translateX(-50%);
+    }
+    .experience-step{
+      position:relative;
+      padding:12px 16px;
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width:60%;
+      max-width:800px;
+      align-self:center;
+      text-align:center;
+    }
+    .experience-step::before{
+      content:'';
+      position:absolute;
+      top:16px;
+      left:50%;
+      transform: translateX(-50%);
+      width:12px;
+      height:12px;
+      background: var(--brand);
+      border-radius:50%;
+    }
+    .experience-step .date{
+      font-weight:900;
+      margin-bottom:4px;
+      color:var(--brand);
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .experience-step .icon{
+      font-size:1.2em;
+      flex-shrink:0;
+    }
+    @media (max-width:720px){
+      .experience-timeline{padding-left:20px;}
+      .experience-step{padding-left:32px;}
+      .experience-timeline::before{left:10px;}
+    }
+
+    /* ====== Tabs ====== */
     .tabs{display:flex;gap:10px;flex-wrap:wrap}
     .tab-btn{
       padding:10px 14px;
@@ -430,6 +542,7 @@
       background:rgba(15,23,42,.05);
       color:var(--muted);
       cursor:pointer;
+      text-align:center;
       transition: transform var(--t) var(--ease), background var(--t) var(--ease), color var(--t) var(--ease), box-shadow var(--t) var(--ease);
     }
     .tab-btn:hover{
@@ -447,21 +560,23 @@
     .tab-panel{display:none}
     .tab-panel.active{display:block}
 
-    /* Note */
-    .note{
-      padding:16px 18px;
-      border-radius: var(--radius);
-      border:1px solid rgba(37,99,235,.26);
-      background: rgba(37,99,235,.07);
-      color: var(--text);
-      transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease);
-    }
-    .note:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(15,23,42,.08);
-    }
+    /* New tab system for alternance */
+    .tab-buttons{display:flex;gap:8px;margin-bottom:16px;}
+    .tab-btn.active{background:var(--brand);color:white;border-color:var(--brand);}
+    .tab-content .tab-panel{display:none;}
+    .tab-content .tab-panel.active{display:block;}
 
-    /* ====== Alternance (plus compact) ====== */
+    /* Compact styles */
+    .swot.compact .swot-box h4{font-size:14px;margin:0 0 6px;}
+    .swot.compact .list.small{font-size:13px;}
+    .project-grid.compact{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;}
+    .project-card.small .project-body h4{font-size:16px;margin:0 0 6px;}
+    .project-card.small .project-body p{font-size:14px;margin:0;}
+
+    /* PDF container */
+    .pdf-container{margin-top:12px;}
+
+    /* ====== Alternance ====== */
     .company{
       display:flex;
       align-items:center;
@@ -469,7 +584,7 @@
       margin-bottom:8px;
     }
     .company-logo{
-      width:80px;height:80px;           /* réduit */
+      width:80px;height:80px;
       border-radius:14px;
       display:grid;
       place-items:center;
@@ -489,7 +604,49 @@
     .company h3{margin:0}
     .company p{margin:2px 0 0;color:var(--muted)}
 
-    /* ====== Organigramme simple ====== */
+    .company-intro{
+      display:grid;
+      grid-template-columns:minmax(0, 1.6fr) minmax(220px, 360px);
+      gap:24px;
+      align-items:center;
+    }
+    .company-intro-copy .sub{
+      margin:0;
+      text-align:left !important;
+    }
+    .company-visual{
+      display:flex;
+      justify-content:flex-end;
+    }
+    .company-visual-card{
+      width:100%;
+      max-width:360px;
+      min-height:260px;
+      border-radius:24px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, rgba(37,99,235,.12), rgba(22,163,74,.10));
+      border:1px solid rgba(37,99,235,.16);
+      box-shadow:0 20px 40px rgba(15,23,42,.08);
+      overflow:hidden;
+      padding:24px;
+    }
+    .company-visual-card img{
+      width:100%;
+      height:100%;
+      max-height:220px;
+      object-fit:contain;
+      display:block;
+    }
+    @media (max-width: 820px){
+      .company-intro{
+        grid-template-columns:1fr;
+      }
+      .company-visual{
+        justify-content:center;
+      }
+    }
+
     .org{
       display:grid;
       gap:10px;
@@ -534,45 +691,55 @@
     }
     .org .indent{ margin-left:18px; border-left:2px solid rgba(37,99,235,.18); padding-left:12px; }
 
-    /* ====== Docs slots ====== */
-    .doc-grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:16px;
-      margin-top:14px;
-    }
-    .doc-slot{
-      display:block;
-      padding:18px;
-      border-radius: var(--radius);
-      border: 2px dashed rgba(37,99,235,.28);
-      background: rgba(37,99,235,.06);
-      color: var(--text);
-      transition: transform var(--t) var(--ease), background var(--t) var(--ease), border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
-      min-height: 120px;
-    }
-    .doc-slot:hover{
-      transform: translateY(-3px);
-      background: rgba(124,58,237,.06);
-      border-color: rgba(124,58,237,.26);
-      box-shadow: 0 14px 30px rgba(15,23,42,.08);
-    }
-    .doc-slot .title{font-weight:900;margin:0 0 6px;}
-    .doc-slot .desc{margin:0;color: var(--muted);font-size:14px;}
-    .badge{
-      display:inline-flex;
-      align-items:center;
+    /* ====== ENTREPRISE (compact) ====== */
+    .entreprise-nav{
+      display:flex;
+      flex-wrap:wrap;
       gap:8px;
-      padding:6px 10px;
+      margin: 6px 0 12px;
+    }
+    .entreprise-nav a{
+      padding:7px 10px;
       border-radius:999px;
-      background: rgba(15,23,42,.05);
       border:1px solid var(--border);
-      color: var(--muted);
-      font-size: 12px;
-      margin-top:12px;
+      background: var(--card);
+      color: var(--text);
+      font-size: .92rem;
+    }
+    .grid-list{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 14px;
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .two-col{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+    }
+    .swot{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+    .swot-box{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      background: var(--card);
+      box-shadow: 0 10px 24px rgba(15,23,42,.06);
+      overflow:hidden;
+    }
+    .swot-box h4{margin:0 0 6px}
+    .p.compact{padding:18px;}
+    @media (max-width:720px){
+      .grid-list{grid-template-columns:1fr}
+      .two-col{grid-template-columns:1fr}
+      .swot{grid-template-columns:1fr}
     }
 
-    /* Contact */
     form{display:grid;gap:12px}
     input,textarea{
       padding:12px;
@@ -582,11 +749,12 @@
       outline:none;
       background:#fff;
       transition: box-shadow var(--t) var(--ease), border-color var(--t) var(--ease), transform var(--t) var(--ease);
+      max-width:100%;
     }
     input:hover, textarea:hover{ transform: translateY(-1px); }
     input:focus, textarea:focus{
       border-color: rgba(37,99,235,.45);
-      box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+      box-shadow: var(--ring);
     }
     textarea{min-height:120px;resize:vertical}
 
@@ -597,40 +765,36 @@
       font-size:13px;
     }
 
-    /* ====== Responsive ====== */
-    @media (max-width:980px){
-      :root{ --sideW: 0px; }
-
-      .sidebar{
-        position:sticky;
-        top:0;
-        width:100%;
-        border-right:none;
-        border-bottom:1px solid var(--border);
-        flex-direction:row;
-        align-items:center;
-        gap:10px;
-      }
-      .sidebar:hover{ width:100%; }
-      .brand .brand-text{opacity:1; transform:none; pointer-events:auto;}
-      .side-nav{
-        flex-direction:row;
-        flex-wrap:wrap;
-        gap:8px;
-      }
-      .side-nav .label{opacity:1; transform:none; pointer-events:auto;}
-      .side-nav a:hover{transform:none}
-      .page{margin-left:0}
-      .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
-      .tl{grid-template-columns:1fr}
-      .doc-grid{grid-template-columns:1fr}
+    /* ====== Animations de reveal (discrÃ¨tes) ====== */
+    .reveal{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .55s var(--ease), transform .55s var(--ease);
+      will-change: opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
     }
 
-    @media (prefers-reduced-motion: reduce){
-      *{transition:none !important; animation:none !important;}
+    /* ====== Typewriter ====== */
+    .type{
+      display:inline-block;
+      white-space:nowrap;
+      border-right: 2px solid rgba(11,18,32,.45);
+      padding-right:3px;
+      animation: caret .9s steps(1) infinite;
+      vertical-align:bottom;
+    }
+    @keyframes caret{
+      50%{ border-color: transparent; }
+    }
+    .type.done{
+      border-right-color: transparent;
+      animation:none;
     }
 
-    /* ====== PROJETS (cartes comme sur l'image) ====== */
+    /* ====== PROJETS ====== */
     .project-grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -645,6 +809,9 @@
       overflow:hidden;
       transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease), border-color var(--t) var(--ease);
       position:relative;
+      max-width:100%;
+      display:flex;
+      flex-direction:column;
     }
     .project-card::before{
       content:"";
@@ -662,12 +829,13 @@
     }
 
     .project-media{
-      height:130px;
+      height:180px;
       background:#fff;
       display:flex;
       align-items:center;
       justify-content:center;
       border-bottom:1px solid rgba(15,23,42,.06);
+      max-width:100%;
     }
     .project-media img{
       width:100%;
@@ -675,9 +843,19 @@
       object-fit:cover;
       display:block;
     }
+    /* rÃ©seau seulement : agrandir et conserver le logo entier */
+    .project-card.network .project-media{
+      height:200px; /* plus de place pour les logos */
+    }
+    .project-card.network .project-media img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+    }
 
     .project-body{
       padding:18px 18px 16px;
+      flex:1 1 auto;
     }
     .project-body h3{
       margin:0 0 8px;
@@ -708,19 +886,239 @@
     .project-action{
       padding:16px 18px 18px;
       border-top:1px solid rgba(15,23,42,.06);
+      margin-top:auto;
     }
 
     .project-action .btn{
       width:100%;
     }
 
+    .veille-layout{ display:block; }
+    .veille-panel{
+      background: linear-gradient(180deg, rgba(248,250,252,.98), rgba(255,255,255,1));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    .veille-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background: rgba(37,99,235,.08);
+      border:1px solid rgba(37,99,235,.14);
+      color:#1f3b87;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .veille-lead{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+    .veille-source-list{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+    .veille-source{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:12px 14px;
+      background: rgba(255,255,255,.72);
+    }
+    .veille-source h3,
+    .veille-method h3,
+    .veille-keywords h3{
+      margin:0 0 6px;
+      font-size:15px;
+    }
+    .veille-source p,
+    .veille-method p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:13px;
+    }
+    .veille-method{
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius:16px;
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(14,165,233,.05));
+      border:1px solid rgba(37,99,235,.14);
+    }
+    .veille-keywords{
+      margin-top:12px;
+      padding-top:4px;
+    }
+    .veille-keywords p{
+      margin:0 0 12px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+    .veille-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .veille-tag{
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(37,99,235,.15);
+      background: rgba(37,99,235,.09);
+      color:#1f3b87;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .contact-card{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .contact-form{
+      display:grid;
+      gap:14px;
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(248,250,252,.98), rgba(255,255,255,1));
+      box-shadow: 0 10px 24px rgba(15,23,42,.06);
+    }
+    .contact-form .row{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+    .contact-form textarea{
+      min-height:140px;
+    }
+    .contact-form .btn{
+      justify-self:start;
+      min-width:160px;
+    }
+    .contact-meta{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+    .contact-meta .muted{
+      margin:0;
+    }
+
+
+    /* ====== Dark mode overrides ====== */
+    body.dark{
+      --bg: #0b1220;
+      --card: #1f2937;
+      --border: rgba(255,255,255,.14);
+      --text: #eef2f7;
+      --muted: #9ca3af;
+      --brand: #4f46e5; /* adjust brand for visibility on dark */
+    }
+
+    /* ensure components adapt */
+    body.dark .btn.ghost{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.18);
+      color: var(--text);
+    }
+    body.dark .sidebar{
+      background: rgba(15,23,42,.92);
+    }
+    body.dark .card,
+    body.dark .item,
+    body.dark .project-card,
+    body.dark .timeline .tl{
+      background: var(--card);
+      border-color: var(--border);
+    }
+    body.dark .progress{
+      background: linear-gradient(90deg, var(--brand), var(--brand2), var(--brand3));
+    }
+    /* org chart nodes should adapt in dark mode */
+    body.dark .org .node{
+      background: var(--card);
+      border-color: var(--border);
+    }
+    body.dark .org .node .title,
+    body.dark .org .node .role{
+      color: var(--text);
+    }
+
+    /* ====== Responsive ====== */
     @media (max-width:980px){
+      :root{ --sideW: 0px; }
+
+      .sidebar{
+        position:sticky;
+        top:0;
+        width:100%;
+        border-right:none;
+        border-bottom:1px solid var(--border);
+        flex-direction:row;
+        align-items:center;
+        gap:10px;
+      }
+      .sidebar:hover{ width:100%; }
+      .brand .brand-text{opacity:1; transform:none; pointer-events:auto;}
+      .side-nav{
+        flex-direction:row;
+        flex-wrap:wrap;
+        gap:8px;
+      }
+      .side-nav .label{opacity:1; transform:none; pointer-events:auto;}
+      .side-nav a:hover{transform:none}
+      .page{margin-left:0}
+      .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+      .tl{grid-template-columns:1fr}
       .project-grid{ grid-template-columns:1fr; }
+      .veille-layout{ grid-template-columns:1fr; }
+      .veille-source-list{ grid-template-columns:1fr; }
+      .contact-form .row{ grid-template-columns:1fr; }
+    }
+
+    /* Ajustements pour affichage PC : onglets moins volumineux et centrÃ©s */
+    @media (min-width:981px){
+      .tabs{justify-content:center}
+      .tab-btn{ padding:8px 10px; font-size:13px }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; animation:none !important;}
     }
   </style>
+  <script>
+    // theme toggle logic
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const btn = document.getElementById('theme-toggle');
+      const apply = (dark)=>{
+        document.body.classList.toggle('dark', dark);
+        localStorage.setItem('darkMode', dark? '1' : '0');
+        if(btn){
+          btn.textContent = dark ? 'â˜€ï¸�' : 'ðŸŒ™';
+          btn.style.background = dark ? 'var(--brand2)' : 'var(--brand)';
+        }
+      };
+      const stored = localStorage.getItem('darkMode');
+      apply(stored==='1');
+      if(btn){
+        btn.addEventListener('click', ()=> apply(!document.body.classList.contains('dark')));
+      }
+    });
+  </script>
 </head>
 
 <body id="top">
+  <div class="progress" id="progress" aria-hidden="true"></div>
 
   <aside class="sidebar" aria-label="Menu">
     <a class="brand" href="#top">
@@ -729,28 +1127,20 @@
     </a>
 
     <nav class="side-nav" aria-label="Navigation">
-      <a href="#presentation" title="Présentation">
+      <a href="#presentation" title="PrÃ©sentation">
         <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-7 9a7 7 0 0 1 14 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span class="label">Présentation</span>
+        <span class="label">PrÃ©sentation</span>
       </a>
 
-      <a href="#competences" title="Compétences">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7 7h10M7 12h10M7 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M4 7h0M4 12h0M4 17h0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="label">Compétences</span>
-      </a>
-
-      <a href="#experience" title="Expérience">
+      <a href="#experience" title="ExpÃ©rience">
         <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           <path d="M4 7h16v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span class="label">Expérience</span>
+        <span class="label">ExpÃ©rience</span>
       </a>
 
       <a href="#alternance" title="Alternance">
@@ -762,12 +1152,19 @@
         <span class="label">Alternance</span>
       </a>
 
-      <a href="#bts" title="BTS SIO">
+      <a href="#competences" title="CompÃ©tences">
         <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 19V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M8 7h8M8 11h8M8 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 7h10M7 12h10M7 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4 7h0M4 12h0M4 17h0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span class="label">BTS SIO</span>
+        <span class="label">CompÃ©tences</span>
+      </a>
+
+      <a href="#certifications" title="Certifications">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-5-3-5 3 1.5-6-4.5-4 6-.5 3-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="label">Certifications</span>
       </a>
 
       <a href="#projets" title="Projets">
@@ -778,20 +1175,20 @@
         <span class="label">Projets</span>
       </a>
 
+      <a href="#bts" title="BTS SIO">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 19V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 7h8M8 11h8M8 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="label">BTS SIO</span>
+      </a>
+
       <a href="#veille" title="Veille">
         <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 3a9 9 0 1 0 9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           <path d="M12 7v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
         <span class="label">Veille</span>
-      </a>
-
-      <a href="#docs" title="Docs">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M14 3v4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="label">Docs</span>
       </a>
 
       <a href="#contact" title="Contact">
@@ -806,95 +1203,66 @@
 
   <div class="page">
 
-    <header>
+    <header class="hero">
       <div class="container">
         <div class="grid grid-2">
-          <div class="card">
+
+          <!-- HERO principal -->
+          <div class="card reveal">
             <div class="p">
-              <div class="kicker">Portfolio — BTS SIO (SISR)</div>
-              <h1>Lirone ADDAD</h1>
-              <p class="sub">
-                Étudiant en <strong>BTS SIO 2e année</strong> (option <strong>SISR</strong>).
-                Je travaille l’<strong>administration systèmes & réseaux</strong>, la <strong>sécurité</strong>,
-                et la mise en place de services (DNS/DHCP, AD, VPN, serveur web).
+              <div class="kicker">Portfolio â€” BTS SIO (SISR)</div>
+
+              <h1>
+                <span class="type" data-text="LIRONE ADDAD"></span>
+              </h1>
+
+              <p class="sub" style="margin-top:6px">
+                <span class="type" data-text="Ã‰tudiant en BTS SIO 2e annÃ©e (SISR)." data-speed="18"></span><br>
+                <span class="type" data-text="Administration systÃ¨mes & rÃ©seaux, sÃ©curitÃ©, mise en place de services." data-speed="18"></span>
               </p>
 
               <div class="pill-row">
-                <span class="pill"><span class="dot"></span> Systèmes</span>
-                <span class="pill"><span class="dot"></span> Réseaux</span>
-                <span class="pill"><span class="dot g"></span> Sécurité</span>
+                <span class="pill"><span class="dot"></span> SystÃ¨mes</span>
+                <span class="pill"><span class="dot"></span> RÃ©seaux</span>
+                <span class="pill"><span class="dot g"></span> SÃ©curitÃ©</span>
                 <span class="pill"><span class="dot"></span> Support</span>
-                <span class="pill"><span class="dot"></span> Documentation</span>
               </div>
 
               <div class="actions">
                 <a class="btn primary" href="#projets">Voir mes projets</a>
-                <a class="btn ghost" href="#experience">Expérience</a>
+                <a class="btn ghost" href="#experience">ExpÃ©rience</a>
                 <a class="btn ghost" href="#contact">Contact</a>
               </div>
 
-              <div style="height:14px"></div>
-              <div class="note">
-                Objectif : évoluer vers un poste <strong>technicien/administrateur systèmes & réseaux</strong> avec une dimension <strong>cybersécurité</strong>.
-              </div>
+
             </div>
           </div>
 
-          <div class="card">
+          <!-- Infos rapides compactes -->
+          <div class="card reveal">
             <div class="p">
-              <h2>Infos rapides</h2>
+              <h2 style="margin-bottom:10px">Infos rapides</h2>
 
               <div class="item" style="padding:16px;">
                 <div class="grid" style="gap:8px;">
-                  <div class="muted"><strong>📍</strong> Saint-Brice</div>
-                  <div class="muted"><strong>📧</strong> lirone9955@gmail.com</div>
-                  <div class="muted"><strong>📱</strong> 07 83 10 68 65</div>
-                  <div class="muted"><strong>🔗</strong> Git / LinkedIn : <strong>à compléter</strong></div>
+                  <div class="muted"><strong>ðŸ“�</strong> Saint-Brice</div>
+                  <div class="muted"><strong>ðŸ“§</strong> lirone9955@gmail.com</div>
+                  <div class="muted"><strong>ðŸ“±</strong> 07 83 10 68 65</div>
+                  <div class="muted"><strong>ðŸ”—</strong> Git / LinkedIn : <strong>Ã  complÃ©ter</strong></div>
                 </div>
               </div>
 
-              <div style="height:14px"></div>
-
-              <div class="grid grid-2">
-                <div class="item">
-                  <h3>Atouts</h3>
-                  <ul class="list">
-                    <li>Rigueur & documentation</li>
-                    <li>Diagnostic & résolution</li>
-                    <li>Lab perso / autonomie</li>
-                  </ul>
-                </div>
-                <div class="item">
-                  <h3>Outils</h3>
-                  <ul class="list">
-                    <li>VS Code / Git</li>
-                    <li>VirtualBox / VMware</li>
-                    <li>Wireshark</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div style="height:14px"></div>
               <div class="actions">
                 <a class="btn primary"
                    href="https://lironead.github.io/Portefolio.lironeADDAD/CV.pdf"
                    download="CV_Lirone_ADDAD.pdf">
-                  Télécharger mon CV
-                </a>
-
-                <a class="btn ghost"
-                   href="https://lironead.github.io/Portefolio.lironeADDAD/CV.pdf"
-                   target="_blank" rel="noopener">
-                  Voir le CV
-                </a>
-
-                <a class="btn ghost" href="#docs">
-                  Voir mes docs
+                  TÃ©lÃ©charger mon CV
                 </a>
               </div>
 
             </div>
           </div>
+
         </div>
       </div>
     </header>
@@ -902,158 +1270,190 @@
     <main>
 
       <section id="presentation">
-        <div class="container">
-          <h2>Présentation</h2>
-          <div class="grid grid-2">
-            <div class="card"><div class="p">
-              <p class="sub">
-                Je m’appelle <strong>Lirone ADDAD</strong>. Je suis en <strong>BTS SIO option SISR</strong> et je me forme à :
-                l’<strong>administration Windows/Linux</strong>, la <strong>configuration réseau</strong>, la <strong>sécurisation</strong> et le <strong>support</strong>.
-              </p>
-              <div style="height:12px"></div>
-              <p class="sub">
-                Ce portfolio présente mes compétences, mes projets, ma veille et ma capacité à <strong>documenter</strong> (procédures, schémas, analyses).
-              </p>
-            </div></div>
-
-            <div class="card"><div class="p">
-              <h3 style="margin:0 0 10px">Ce que je sais faire (concret)</h3>
-              <ul class="list">
-                <li>Déployer et configurer des services : DNS, DHCP, AD, serveur web</li>
-                <li>Segmenter et diagnostiquer un réseau : IP, VLAN, routage, analyse trafic</li>
-                <li>Sécuriser : firewall (pfSense), règles, VPN, bonnes pratiques</li>
-                <li>Documenter : procédures, comptes rendus, schémas</li>
-              </ul>
-            </div></div>
+        <div class="container" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;">
+          <h2>PrÃ©sentation</h2>
+          <div style="max-width:800px;text-align:center;">
+            <p class="sub" style="text-align:center;">
+              Je mâ€™appelle Lirone ADDAD, Ã©tudiant en BTS SIO option SISR, spÃ©cialisÃ© dans lâ€™administration des systÃ¨mes et des rÃ©seaux. PassionnÃ© par la technologie depuis plusieurs annÃ©es, je mâ€™intÃ©resse particuliÃ¨rement au fonctionnement des infrastructures informatiques, Ã  la configuration des rÃ©seaux et Ã  la sÃ©curisation des serveurs. Jâ€™aime comprendre comment les systÃ¨mes communiquent entre eux, diagnostiquer des problÃ¨mes techniques et mettre en place des solutions fiables. Mon objectif est de dÃ©velopper des compÃ©tences solides en administration systÃ¨me, rÃ©seaux et cybersÃ©curitÃ©, afin de pouvoir concevoir et maintenir des infrastructures informatiques performantes et sÃ©curisÃ©es.
+            </p>
+            <div style="height:16px"></div>
+            <div class="actions" style="justify-content:center;">
+              <a class="btn ghost" href="https://lironead.github.io/Portefolio.lironeADDAD/CV.pdf" target="_blank" rel="noopener">
+                Voir le CV
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
+
+
+      <section id="experience">
+        <div class="container">
+          <h2>Mon parcours</h2>
+          <div class="experience-timeline">
+            <div class="experience-step reveal">
+              <div class="date"><span class="icon">ðŸŽ“</span>2021</div>
+              <div class="content">
+                <strong>Brevet des collÃ¨ges</strong><br>
+                ORT Villiers-le-Bel
+              </div>
+            </div>
+
+            <div class="experience-step reveal">
+              <div class="date"><span class="icon">ðŸŽ“</span>2024</div>
+              <div class="content">
+                <strong>BaccalaurÃ©at STMG</strong><br>
+                ORT Villiers-le-Bel
+              </div>
+            </div>
+
+            <div class="experience-step reveal">
+              <div class="date"><span class="icon">ðŸŽ“</span>2024 â€“ Aujourdâ€™hui</div>
+              <div class="content">
+                <strong>BTS SIO (Services Informatiques aux Organisations)</strong><br>
+                Option SISR â€“ Solutions dâ€™Infrastructure, SystÃ¨mes et RÃ©seaux
+              </div>
+            </div>
+
+            <div class="experience-step reveal">
+              <div class="date"><span class="icon">ðŸ’¼</span>Juillet 2024 â€“ Aujourdâ€™hui</div>
+              <div class="content">
+                <strong>Alternance chez Xanlite</strong><br>
+                Technicien rÃ©seaux (alternant)
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- compÃ©tences et certifications moveÃ©es ici -->
       <section id="competences">
         <div class="container">
-          <h2>Compétences détaillées</h2>
+          <h2>CompÃ©tences</h2>
 
           <div class="actions" style="margin-top:10px; margin-bottom:18px;">
-            <a class="btn primary"
-               href="tableau_competences.pdf"
-               download>
-              Télécharger le tableau de compétences (PDF)
+            <a class="btn primary" href="tab_competences.pdf" download>
+              TÃ©lÃ©charger le tableau de compÃ©tences (PDF)
             </a>
-
-            <a class="btn ghost"
-               href="tableau_competences.pdf"
-               target="_blank" rel="noopener">
+            <a class="btn ghost" href="tab_competences.pdf" target="_blank" rel="noopener">
               Ouvrir le tableau
             </a>
           </div>
 
           <div class="grid grid-3">
-            <div class="item">
-              <h3>Réseaux</h3>
-              <p>Adressage, segmentation, services réseau, dépannage.</p>
-              <div class="meta">
-                <span>TCP/IP</span><span>DNS</span><span>DHCP</span><span>VLAN</span><span>Wireshark</span>
-              </div>
+            <div class="item reveal">
+              <h3>RÃ©seaux</h3>
               <ul class="list">
-                <li>Configuration IP, passerelle, DNS</li>
-                <li>Compréhension des flux et troubleshooting</li>
-                <li>Analyse de trafic (captures, filtres)</li>
+                <li>DHCP</li>
+                <li>DNS</li>
+                <li>VLAN</li>
+                <li>TCP/IP</li>
+                <li>HSRP</li>
               </ul>
             </div>
 
-            <div class="item">
-              <h3>Systèmes</h3>
-              <p>Administration Windows/Linux, gestion comptes, services.</p>
-              <div class="meta">
-                <span>Debian</span><span>Windows</span><span>Services</span><span>Scripts</span>
-              </div>
+            <div class="item reveal">
+              <h3>SystÃ¨mes</h3>
               <ul class="list">
-                <li>Gestion utilisateurs/droits</li>
-                <li>Installation + configuration services</li>
-                <li>Maintenance et mises à jour</li>
+                <li>Windows Server, 10 & 11</li>
+                <li>Debian</li>
+                <li>Active Directory</li>
+                <li>GLPI</li>
+                <li>Linux</li>
               </ul>
             </div>
 
-            <div class="item">
-              <h3>Sécurité</h3>
-              <p>Contrôle d’accès réseau, VPN, règles firewall.</p>
-              <div class="meta">
-                <span>pfSense</span><span>VPN</span><span>Règles</span><span>Segmentation</span>
-              </div>
+            <div class="item reveal">
+              <h3>SÃ©curitÃ©</h3>
               <ul class="list">
-                <li>Filtrage entrant/sortant</li>
-                <li>Accès distant sécurisé (VPN)</li>
-                <li>Bonnes pratiques (moindre privilège)</li>
+                <li>VPN</li>
+                <li>Firewall</li>
+                <li>Segmentation</li>
+                <li>ACL</li>
+                <li>KaliÂ Linux</li>
               </ul>
             </div>
-          </div>
-
-          <div style="height:18px"></div>
-
-          <div class="grid grid-4">
-            <div class="item"><h3>Support</h3><p>Diagnostic, tickets, procédures.</p></div>
-            <div class="item"><h3>Virtualisation</h3><p>VM, snapshots, réseaux virtuels.</p></div>
-            <div class="item"><h3>Documentation</h3><p>Procédures, schémas, synthèses.</p></div>
-            <div class="item"><h3>Outils</h3><p>Git, VS Code, outils réseau.</p></div>
           </div>
         </div>
       </section>
 
-      <section id="experience">
+      <section id="certifications">
         <div class="container">
-          <h2>Expérience</h2>
+          <h2>Certifications</h2>
 
-          <div class="timeline">
-            <div class="tl">
-              <div>
-                <div class="when">Alternance — 2024 → 2026</div>
-                <div class="where">Entreprise : Xanlite</div>
-              </div>
-              <div>
-                <h3 style="margin:0 0 8px">Missions principales</h3>
-                <ul class="list">
-                  <li>Support utilisateurs (N1/N2), diagnostic et résolution d’incidents</li>
-                  <li>Préparation et maintenance postes (mises à jour, logiciels, profils)</li>
-                  <li>Gestion comptes/droits, participation à l’admin de l’infra</li>
-                  <li>Documentation : procédures et comptes rendus d’intervention</li>
-                </ul>
-                <div class="meta">
-                  <span>Support</span><span>Windows</span><span>Réseau</span><span>Doc</span>
+          <div style="height:10px"></div>
+
+          <div class="grid grid-3">
+            <div class="card reveal">
+              <div class="p">
+                <div style="display:flex;gap:12px;align-items:center">
+                  <div style="width:140px;height:100px;background:#f3f4f6;border-radius:10px;display:grid;place-items:center;overflow:hidden">
+                    <div style="display:flex;gap:6px;">
+                      <img src="cnilcertif.jpg" alt="Atelier RGPD CNIL" style="width:100%;height:100%;object-fit:contain"/>
+                      <img src="cnilcertif.jpg" alt="Certificat CNIL" style="width:100%;height:100%;object-fit:contain"/>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 style="margin:0 0 6px">Atelier RGPD â€” CNIL</h3>
+                    <p class="muted" style="margin:0">Atelier pratique sur les bases du RGPD et protection des donnÃ©es.</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="tl">
-              <div>
-                <div class="when">WordPress — 1ère année</div>
-                <div class="where">Petit projet en + de l’alternance</div>
-              </div>
-              <div>
-                <h3 style="margin:0 0 8px">Gestion WordPress (expérience complémentaire)</h3>
-                <ul class="list">
-                  <li>Mise en place d’un site WordPress local (stack Docker/Portainer)</li>
-                  <li>Gestion contenu, pages, médias, mise en forme</li>
-                  <li>Logique “mini projet” : structuration, itérations, corrections</li>
-                </ul>
-                <div class="meta">
-                  <span>WordPress</span><span>Docker</span><span>Portainer</span>
+            <div class="card reveal">
+              <div class="p">
+                <div style="display:flex;gap:12px;align-items:center">
+                  <div style="width:84px;height:64px;background:#f3f4f6;border-radius:10px;display:grid;place-items:center;overflow:hidden">
+                    <img src="cisco_basics.png" alt="Cisco Networking Basics" style="width:100%;height:100%;object-fit:contain"/>
+                  </div>
+                  <div>
+                    <h3 style="margin:0 0 6px">Cisco Networking BASICS</h3>
+                    <p class="muted" style="margin:0">Introduction aux concepts rÃ©seau par Cisco.</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="tl">
-              <div>
-                <div class="when">Intérim / jobs d’été</div>
-                <div class="where">Logistique</div>
+            <div class="card reveal">
+              <div class="p">
+                <div style="display:flex;gap:12px;align-items:center">
+                  <div style="width:84px;height:64px;background:#f3f4f6;border-radius:10px;display:grid;place-items:center;overflow:hidden">
+                    <img src="network_support.png" alt="Network Support and Security" style="width:100%;height:100%;object-fit:contain"/>
+                  </div>
+                  <div>
+                    <h3 style="margin:0 0 6px">Network Support and Security</h3>
+                    <p class="muted" style="margin:0">CompÃ©tences en support rÃ©seau et sÃ©curitÃ© opÃ©rationnelle.</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 style="margin:0 0 8px">Expérience terrain</h3>
-                <ul class="list">
-                  <li>Rigueur, organisation, respect des consignes</li>
-                  <li>Travail en équipe, cadence, fiabilité</li>
-                </ul>
-                <div class="meta">
-                  <span>Organisation</span><span>Fiabilité</span><span>Équipe</span>
+            </div>
+
+            <div class="card reveal">
+              <div class="p">
+                <div style="display:flex;gap:12px;align-items:center">
+                  <div style="width:84px;height:64px;background:#f3f4f6;border-radius:10px;display:grid;place-items:center;overflow:hidden">
+                    <img src="ccna.png" alt="CCNA 1&2" style="width:100%;height:100%;object-fit:contain"/>
+                  </div>
+                  <div>
+                    <h3 style="margin:0 0 6px">CCNA 1 & 2</h3>
+                    <p class="muted" style="margin:0">Formation CCNA 1&2 â€” <strong>(en cours de validitÃ©)</strong></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card reveal">
+              <div class="p">
+                <div style="display:flex;gap:12px;align-items:center">
+                  <div style="width:84px;height:64px;background:#f3f4f6;border-radius:10px;display:grid;place-items:center;overflow:hidden">
+                    <img src="ndg_linux.png" alt="NDG Linux" style="width:100%;height:100%;object-fit:contain"/>
+                  </div>
+                  <div>
+                    <h3 style="margin:0 0 6px">NDG Linux (Intro)</h3>
+                    <p class="muted" style="margin:0">Introduction aux concepts Linux en ligne de commande â€” <em>(en cours d'acquisition)</em></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1064,172 +1464,209 @@
 
       <section id="alternance">
         <div class="container">
-          <h2>Alternance — Xanlite</h2>
+          <h2>Alternance â€” Xanlite</h2>
 
-          <div class="grid grid-2">
-            <div class="card"><div class="p">
+          <div class="card reveal">
+            <div class="p">
 
-              <div class="company">
-                <div class="company-logo" aria-label="Logo Xanlite">
-                  <img src="téléchargement.png" alt="Xanlite" />
-                </div>
-                <div>
-                  <h3 style="margin:0">Xanlite</h3>
-                  <p class="muted" style="margin:2px 0 0">Présentation rapide</p>
-                </div>
-              </div>
-
-              <p class="sub">
-                Xanlite Group est une entreprise française spécialisée dans les solutions d’éclairage LED et les équipements électriques intelligents.
-                Le groupe conçoit, développe et distribue des produits innovants destinés aux professionnels et au grand public.
-                Xanlite se distingue par son expertise en efficacité énergétique, domotique et éclairage connecté.
-                Présente à l’international, l’entreprise s’appuie sur une forte capacité d’innovation et de design produit.
-                Son objectif : proposer des solutions fiables, performantes et accessibles, tout en réduisant l’impact environnemental.
-              </p>
-
-            </div></div>
-
-            <div class="card"><div class="p">
-              <h3 style="margin:0 0 10px">Organigramme (IT)</h3>
-
-              <div class="org">
-                <div class="node">
-                  <span class="tag"></span>
-                  <div>
-                    <p class="title">Laurent ADDAD</p>
-                    <p class="role">Chef IT</p>
-                  </div>
-                </div>
-
-                <div class="indent">
-                  <div class="node">
-                    <span class="tag g"></span>
+              <div class="company-intro">
+                <div class="company-intro-copy">
+                  <div class="company">
                     <div>
-                      <p class="title">Gabriel SAADA</p>
-                      <p class="role">Informaticien junior</p>
+                      <h3 style="margin:0">XANLITE Group</h3>
+                      <p class="muted" style="margin:2px 0 0">PME franÃ§aise (Ã©clairage & solutions connectÃ©es)</p>
                     </div>
                   </div>
 
-                  <div class="indent">
+                  <p class="sub">
+                    Xanlite est une PME franÃ§aise situÃ©e au 92 boulevard Victor Hugo Ã  Clichy, spÃ©cialisÃ©e dans les solutions dâ€™Ã©clairage LED. Sous forme de SAS et composÃ©e dâ€™environ 50 salariÃ©s, elle Ã©volue dans un secteur portÃ© par les enjeux dâ€™efficacitÃ© Ã©nergÃ©tique. Son histoire remonte Ã  1997 avec la crÃ©ation de Yantec par Serge et Yann Addad, qui ont fait le pari prÃ©curseur de la technologie LED, plus Ã©conomique et respectueuse de lâ€™environnement. Aujourdâ€™hui, lâ€™entreprise propose des produits alliant performance et accessibilitÃ©. Dans le cadre du RGPD, Xanlite applique des mesures de protection des donnÃ©es strictes : collecte limitÃ©e (nom, email, adresse, donnÃ©es de commande), consentement explicite, chiffrement des informations sensibles, respect des droits des utilisateurs et conservation des donnÃ©es uniquement pour la durÃ©e nÃ©cessaire.
+                  </p>
+                </div>
+
+                <div class="company-visual">
+                  <div class="company-visual-card" aria-label="Visuel Xanlite Groupe">
+                    <img src="tÃ©lÃ©chargement.png" alt="Logo Xanlite Groupe" />
+                  </div>
+                </div>
+              </div>
+
+              <div style="height:20px"></div>
+
+              <div class="two-col">
+                <div>
+                  <h3 style="margin:0 0 10px">Organigramme - Service IT</h3>
+
+                  <div class="org">
                     <div class="node">
-                      <span class="tag p"></span>
+                      <span class="tag"></span>
                       <div>
-                        <p class="title">Lirone ADDAD</p>
-                        <p class="role">Apprenti (BTS SIO SISR)</p>
+                        <p class="title">Laurent ADDAD</p>
+                        <p class="role">Chef IT</p>
+                      </div>
+                    </div>
+
+                    <div class="indent">
+                      <div class="node">
+                        <span class="tag g"></span>
+                        <div>
+                          <p class="title">Gabriel SAADA</p>
+                          <p class="role">Informaticien junior</p>
+                        </div>
+                      </div>
+
+                      <div class="indent">
+                        <div class="node">
+                          <span class="tag p"></span>
+                          <div>
+                            <p class="title">Lirone ADDAD</p>
+                            <p class="role">Apprenti (BTS SIO SISR)</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div style="height:12px"></div>
+                <div>
+                  <h3 style="margin:0 0 10px">SWOT</h3>
 
-              <div class="item">
-                <h3>Missions (résumé)</h3>
-                <ul class="list">
-                  <li>Support utilisateurs (N1/N2)</li>
-                  <li>Préparation / maintenance postes</li>
-                  <li>Participation infra (comptes / réseau / services)</li>
-                  <li>Documentation (procédures / CR)</li>
-                </ul>
-              </div>
-
-            </div></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="bts">
-        <div class="container">
-          <h2>BTS SIO</h2>
-
-          <div class="card">
-            <div class="p">
-              <div class="tabs" role="tablist" aria-label="Onglets BTS SIO">
-                <button class="tab-btn" role="tab" id="tab-slam" aria-controls="panel-slam" aria-selected="false" type="button">Option SLAM</button>
-                <button class="tab-btn" role="tab" id="tab-sisr" aria-controls="panel-sisr" aria-selected="true" type="button">Option SISR</button>
-                <button class="tab-btn" role="tab" id="tab-deb" aria-controls="panel-deb" aria-selected="false" type="button">Débouchés</button>
-              </div>
-
-              <div style="height:16px"></div>
-
-              <div class="tab-panel" id="panel-slam" role="tabpanel" aria-labelledby="tab-slam">
-                <div class="item">
-                  <h3>SLAM — Développement</h3>
-                  <p class="muted">
-                    Conception d’applications, programmation, bases de données et solutions adaptées aux besoins métiers.
-                  </p>
-                  <ul class="list">
-                    <li>Applications web / desktop</li>
-                    <li>BDD, requêtes, conception</li>
-                    <li>Tests, maintenance et évolution</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tab-panel active" id="panel-sisr" role="tabpanel" aria-labelledby="tab-sisr">
-                <div class="item">
-                  <h3>SISR — Infrastructure</h3>
-                  <p class="muted">
-                    Administration systèmes et réseaux, déploiement de services, supervision et sécurisation.
-                  </p>
-                  <ul class="list">
-                    <li>Linux / Windows, services</li>
-                    <li>DNS, DHCP, AD, segmentation</li>
-                    <li>Sécurité : pare-feu, VPN</li>
-                    <li>Documentation et support</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="tab-panel" id="panel-deb" role="tabpanel" aria-labelledby="tab-deb">
-                <div class="item">
-                  <h3>Débouchés</h3>
-                  <div class="grid grid-2" style="margin-top:12px">
-                    <div class="item">
-                      <h3>SISR</h3>
-                      <ul class="list">
-                        <li>Technicien systèmes et réseaux</li>
-                        <li>Administrateur junior</li>
-                        <li>Technicien support / exploitation</li>
-                        <li>Cybersécurité (junior)</li>
+                  <div class="swot compact">
+                    <div class="swot-box">
+                      <h4>Forces</h4>
+                      <ul class="list small">
+                        <li>Positionnement innovation + accessibilitÃ©</li>
                       </ul>
                     </div>
-                    <div class="item">
-                      <h3>SLAM</h3>
-                      <ul class="list">
-                        <li>Développeur web / applicatif</li>
-                        <li>Développeur logiciel</li>
-                        <li>Technicien applicatif</li>
-                        <li>Intégrateur</li>
+
+                    <div class="swot-box">
+                      <h4>Faiblesses</h4>
+                      <ul class="list small">
+                        <li>DÃ©pendance aux canaux retail</li>
+                      </ul>
+                    </div>
+
+                    <div class="swot-box">
+                      <h4>OpportunitÃ©s</h4>
+                      <ul class="list small">
+                        <li>Transition Ã©nergÃ©tique (LED)</li>
+                      </ul>
+                    </div>
+
+                    <div class="swot-box">
+                      <h4>Menaces</h4>
+                      <ul class="list small">
+                        <li>Concurrence forte (prix + volume)</li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
 
+              <div style="height:20px"></div>
+
+              <div class="tabs">
+                <div class="tab-buttons">
+                  <button class="tab-btn active" data-tab="missions">Missions principales</button>
+                </div>
+
+                <div class="tab-content">
+                  <div class="tab-panel active" id="missions">
+                    <h3>Missions (rÃ©sumÃ©)</h3>
+                    <p>- Support utilisateurs via outil de ticketing (gestion des incidents, assistance quotidienne)</p>
+                    <p>- Administration des comptes (rÃ©initialisation de mots de passe, gestion des accÃ¨s)</p>
+                    <p>- Installation et configuration de postes de travail, tÃ©lÃ©phonie IP et Ã©quipements mobiles</p>
+                    <p>- DÃ©ploiement et test dâ€™infrastructures rÃ©seau (cÃ¢blage RJ45, interventions en salle serveur)</p>
+                    <p>- Diagnostic et rÃ©solution de pannes matÃ©rielles et logicielles (PC, portables, mobiles)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style="height:30px"></div>
+
+              <h3>Projets rÃ©alisÃ©s en entreprise</h3>
+              <div class="project-grid compact">
+                <article class="project-card small">
+                  <div class="project-media">
+                    <img src="W10W11.JPG" alt="Migration Windows 10 Ã  11" />
+                  </div>
+                  <div class="project-body">
+                    <h4>Migration Windows 10 vers Windows 11 Pro</h4>
+                    <p>ParticipÃ© Ã  la migration du parc : compatibilitÃ©, sauvegarde des donnÃ©es, installation et tests.</p>
+                    <p><strong>Objectif :</strong> Assurer la migration du parc informatique vers Windows 11 afin de garantir la s&eacute;curit&eacute; et la p&eacute;rennit&eacute; du syst&egrave;me.</p>
+                    <p><strong>Moyen :</strong> Migration des postes apr&egrave;s v&eacute;rification de leur compatibilit&eacute; mat&eacute;rielle et logicielle.</p>
+                    <p><strong>R&eacute;sultat :</strong> Postes op&eacute;rationnels sous Windows 11 avec maintien de la continuit&eacute; de service.</p>
+                  </div>
+                </article>
+
+                <article class="project-card small">
+                  <div class="project-media">
+                    <img src="glpiinven.png" alt="GLPI Inventory" />
+                  </div>
+                  <div class="project-body">
+                    <h4>Installation de GLPI Inventory</h4>
+                    <p>Mise en place sur site logistique : dÃ©ploiement des agents, remontÃ©e des inventaires.</p>
+                    <p><strong>Objectif :</strong> Mettre en place un syst&egrave;me d&rsquo;inventaire automatis&eacute; pour centraliser les informations du parc informatique.</p>
+                    <p><strong>Moyen :</strong> D&eacute;ploiement de GLPI Inventory avec installation d&rsquo;agents sur les postes.</p>
+                    <p><strong>R&eacute;sultat :</strong> Inventaire du parc accessible &agrave; distance avec remont&eacute;e automatique des informations (OS, mat&eacute;riel).</p>
+                  </div>
+                </article>
+
+                <article class="project-card small">
+                  <div class="project-media">
+                    <img src="sage.png" alt="Sage X3" />
+                  </div>
+                  <div class="project-body">
+                    <h4>Consolidation base de donnÃ©es Sage X3</h4>
+                    <p>Analyse et correction des incohÃ©rences pour amÃ©liorer la fiabilitÃ© des donnÃ©es clients.</p>
+                    <p><strong>Objectif :</strong> Am&eacute;liorer la qualit&eacute; et la fiabilit&eacute; des donn&eacute;es clients dans Sage X3.</p>
+                    <p><strong>Moyen :</strong> Nettoyage et correction des donn&eacute;es pour supprimer les incoh&eacute;rences.</p>
+                    <p><strong>R&eacute;sultat :</strong> Base de donn&eacute;es structur&eacute;e et plus fiable pour les utilisateurs.</p>
+                  </div>
+                </article>
+              </div>
+
+              <div style="height:30px"></div>
+
+              <h3>PrÃ©sentation PowerPoint (PDF)</h3>
+              <div class="pdf-container">
+                <iframe src="PrÃ©sentation_xanlite.pdf" width="100%" height="600px" style="border:1px solid var(--border); border-radius:var(--radius);">
+                  <p>Votre navigateur ne supporte pas les iframes. <a href="cv.pdf.pdf">TÃ©lÃ©charger le PDF</a></p>
+                </iframe>
+              </div>
+
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- ====== PROJETS (version cartes avec images + tags + bouton) ====== -->
+
+
+
+
+      <!-- compÃ©tences & certifications ont Ã©tÃ© dÃ©placÃ©es aprÃ¨s le parcours -->
+
+
+
       <section id="projets">
         <div class="container">
           <h2>Projets</h2>
 
+          <div style="height:10px"></div>
+
+          <h3 style="margin:0 0 12px; text-align:center;">SystÃ¨me / CybersÃ©curitÃ©</h3>
           <div class="project-grid">
 
-            <!-- PROJET 1 -->
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-media">
-                <img src="projets/glpi.png" alt="Mise en place GLPI" />
+                <img src="glpi.jpg" alt="Mise en place GLPI" />
               </div>
 
               <div class="project-body">
                 <h3>Mise en place GLPI</h3>
-                <p>Installation et configuration d’un serveur de gestion de parc et ticketing pour le suivi des incidents.</p>
+                <p>Installation et configuration dâ€™un serveur de gestion de parc et ticketing pour le suivi des incidents.</p>
+                <p><strong>Objectif :</strong> Centraliser la gestion du parc et des incidents</p>
+                <p><strong>Moyen :</strong> Installation et configuration dâ€™un serveur GLPI</p>
+                <p><strong>RÃ©sultat :</strong> Suivi des Ã©quipements et tickets centralisÃ©</p>
 
                 <div class="project-tags">
                   <span class="project-tag">Linux</span>
@@ -1239,19 +1676,21 @@
               </div>
 
               <div class="project-action">
-                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+                <a class="btn primary" href="TP_GLPI.pdf" target="_blank">Voir le projet â†’</a>
               </div>
             </article>
 
-            <!-- PROJET 2 -->
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-media">
-                <img src="projets/ad.png" alt="Active Directory" />
+                <img src="active-directory.png" alt="Active Directory" />
               </div>
 
               <div class="project-body">
                 <h3>Active Directory</h3>
-                <p>Création d’un domaine Windows, gestion des utilisateurs, GPO et scripts d’ouverture de session.</p>
+                <p>CrÃ©ation dâ€™un domaine Windows, gestion des utilisateurs, GPO et scripts dâ€™ouverture de session.</p>
+                <p><strong>Objectif :</strong> Structurer la gestion des utilisateurs et des ressources</p>
+                <p><strong>Moyen :</strong> Mise en place dâ€™un domaine Windows avec AD DS</p>
+                <p><strong>RÃ©sultat :</strong> Gestion centralisÃ©e des comptes et des accÃ¨s</p>
 
                 <div class="project-tags">
                   <span class="project-tag">Windows Server</span>
@@ -1261,63 +1700,69 @@
               </div>
 
               <div class="project-action">
-                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+                <a class="btn primary" href="TP_WindowsServer.pdf" target="_blank">Voir le projet â†’</a>
               </div>
             </article>
 
-            <!-- PROJET 3 -->
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-media">
-                <img src="projets/pfsense.png" alt="Sécurité Réseau pfSense" />
+                <img src="pfsense.jpg" alt="SÃ©curitÃ© RÃ©seau pfSense" />
               </div>
 
               <div class="project-body">
-                <h3>Sécurité Réseau</h3>
-                <p>Mise en place d’un pare-feu pfSense, filtrage des paquets et configuration VPN.</p>
+                <h3>SÃ©curitÃ© RÃ©seau</h3>
+                <p>Mise en place dâ€™un pare-feu pfSense, filtrage des paquets et configuration VPN.</p>
+                <p><strong>Objectif :</strong> SÃ©curiser le rÃ©seau de lâ€™entreprise</p>
+                <p><strong>Moyen :</strong> Configuration dâ€™un pare-feu pfSense avec rÃ¨gles de filtrage et VPN</p>
+                <p><strong>RÃ©sultat :</strong> RÃ©seau protÃ©gÃ© avec contrÃ´le des flux et accÃ¨s distant sÃ©curisÃ©</p>
 
                 <div class="project-tags">
-                  <span class="project-tag">Réseau</span>
+                  <span class="project-tag">RÃ©seau</span>
                   <span class="project-tag">pfSense</span>
-                  <span class="project-tag">Sécurité</span>
+                  <span class="project-tag">SÃ©curitÃ©</span>
                 </div>
               </div>
 
               <div class="project-action">
-                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+                <a class="btn primary" href="TP_pfsense.pdf" target="_blank">Voir le projet â†’</a>
               </div>
             </article>
 
-            <!-- PROJET 4 -->
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-media">
-                <img src="projets/postfix.png" alt="Serveur de messagerie Postfix" />
+                <div class="muted" style="font-weight:800;">Image Ã  venir</div>
               </div>
 
               <div class="project-body">
-                <h3>Serveur de messagerie</h3>
-                <p>Mise en place d’une infrastructure mail complète sous Linux et configuration client.</p>
+                <h3>Man in the Middle</h3>
+                <p>Ã‰tude et mise en pratique dâ€™une attaque Man in the Middle dans un cadre pÃ©dagogique pour comprendre les risques liÃ©s aux interceptions rÃ©seau.</p>
+                <p><strong>Objectif :</strong> Comprendre le fonctionnement dâ€™une attaque Man in the Middle et ses impacts sur la sÃ©curitÃ©</p>
+                <p><strong>Moyen :</strong> Simulation dâ€™un scÃ©nario dâ€™interception rÃ©seau dans un environnement de test</p>
+                <p><strong>RÃ©sultat :</strong> Analyse des risques identifiÃ©s et des bonnes pratiques de protection Ã  appliquer</p>
 
                 <div class="project-tags">
-                  <span class="project-tag">Postfix</span>
-                  <span class="project-tag">Dovecot</span>
-                  <span class="project-tag">Thunderbird</span>
+                  <span class="project-tag">CybersÃ©curitÃ©</span>
+                  <span class="project-tag">RÃ©seau</span>
+                  <span class="project-tag">Analyse</span>
                 </div>
               </div>
 
               <div class="project-action">
-                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet â†’</a>
               </div>
             </article>
 
-            <!-- PROJET 5 -->
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-media">
-                <img src="projets/openvpn.png" alt="Infrastructure VPN OpenVPN" />
+                <img src="vpn.jpg" alt="Infrastructure VPN OpenVPN" />
               </div>
 
               <div class="project-body">
                 <h3>Infrastructure VPN</h3>
-                <p>Déploiement d’un serveur OpenVPN et gestion des certificats pour un accès distant sécurisé.</p>
+                <p>DÃ©ploiement dâ€™un serveur OpenVPN et gestion des certificats pour un accÃ¨s distant sÃ©curisÃ©.</p>
+                <p><strong>Objectif :</strong> Permettre un accÃ¨s distant sÃ©curisÃ©</p>
+                <p><strong>Moyen :</strong> DÃ©ploiement dâ€™un serveur OpenVPN avec gestion des certificats</p>
+                <p><strong>RÃ©sultat :</strong> Connexion sÃ©curisÃ©e au rÃ©seau Ã  distance</p>
 
                 <div class="project-tags">
                   <span class="project-tag">OpenVPN</span>
@@ -1327,32 +1772,218 @@
               </div>
 
               <div class="project-action">
-                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+                <a class="btn primary" href="TP_OpenVPN.pdf" target="_blank">Voir le projet â†’</a>
               </div>
             </article>
 
-            <!-- PROJET 6 -->
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-media">
-                <img src="projets/infra.png" alt="Infrastructure Globale" />
+                <img src="dhcp_dnslogo.png" alt="DHCP DNS Debian" />
               </div>
 
               <div class="project-body">
-                <h3>Infrastructure Globale</h3>
-                <p>Synthèse BTS SIO : conception et interconnexion des services (AD, GLPI, pfSense, VPN…).</p>
+                <h3>DHCP / DNS sous Debian</h3>
+                <p>Mise en place des services DHCP et DNS sur Debian pour automatiser lâ€™adressage IP et la rÃ©solution de noms.</p>
+                <p><strong>Objectif :</strong> Automatiser lâ€™attribution des adresses IP et la rÃ©solution de noms</p>
+                <p><strong>Moyen :</strong> Installation et configuration des services DHCP et DNS sur Debian</p>
+                <p><strong>RÃ©sultat :</strong> Attribution automatique des IP et accÃ¨s simplifiÃ© aux ressources rÃ©seau</p>
 
                 <div class="project-tags">
-                  <span class="project-tag">Architecture</span>
-                  <span class="project-tag">Intégration</span>
-                  <span class="project-tag">Sécurité</span>
+                  <span class="project-tag">Debian</span>
+                  <span class="project-tag">DHCP</span>
+                  <span class="project-tag">DNS</span>
                 </div>
               </div>
 
               <div class="project-action">
-                <a class="btn primary" href="#" onclick="return false;">Voir le projet →</a>
+                <a class="btn primary" href="TP_DHCPDNS.pdf" target="_blank">Voir le projet â†’</a>
               </div>
             </article>
 
+          </div>
+
+          <div style="height:26px"></div>
+
+          <h3 style="margin:0 0 12px; text-align:center;">RÃ©seaux</h3>
+          <div class="project-grid">
+
+            <article class="project-card reveal network">
+              <div class="project-media">
+                <img src="intervlanlogo.png" alt="Routage inter-VLAN" />
+              </div>
+              <div class="project-body">
+                <h3>Routage inter-VLAN</h3>
+                <p>Configuration et routage entre VLANs pour segmenter le trafic.</p>
+                <p><strong>Objectif :</strong> Segmenter le rÃ©seau et permettre la communication entre VLANs</p>
+                <p><strong>Moyen :</strong> Configuration du routage inter-VLAN sur switch ou routeur</p>
+                <p><strong>RÃ©sultat :</strong> Communication fonctionnelle entre les diffÃ©rents VLANs</p>
+                <div class="project-tags"><span class="project-tag">VLAN</span><span class="project-tag">Switch</span></div>
+              </div>
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet â†’</a>
+              </div>
+            </article>
+
+            <article class="project-card reveal network">
+              <div class="project-media">
+                <img src="ospflogo.png" alt="OSPF" />
+              </div>
+              <div class="project-body">
+                <h3>OSPF</h3>
+                <p>Protocoles de routage dynamique et configuration OSPF.</p>
+                <p><strong>Objectif :</strong> Optimiser le routage dynamique du rÃ©seau</p>
+                <p><strong>Moyen :</strong> Mise en place du protocole OSPF sur les Ã©quipements rÃ©seau</p>
+                <p><strong>RÃ©sultat :</strong> Routage automatique et optimisÃ© entre les rÃ©seaux</p>
+                <div class="project-tags"><span class="project-tag">Routage</span><span class="project-tag">OSPF</span></div>
+              </div>
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet â†’</a>
+              </div>
+            </article>
+
+            <article class="project-card reveal network">
+              <div class="project-media">
+                <img src="acllogo.png" alt="ACL" />
+              </div>
+              <div class="project-body">
+                <h3>ACL</h3>
+                <p>Listes de contrÃ´le dâ€™accÃ¨s pour filtrer le trafic et sÃ©curiser le rÃ©seau.</p>
+                <p><strong>Objectif :</strong> ContrÃ´ler et sÃ©curiser le trafic rÃ©seau</p>
+                <p><strong>Moyen :</strong> Configuration de listes de contrÃ´le dâ€™accÃ¨s sur les Ã©quipements</p>
+                <p><strong>RÃ©sultat :</strong> Filtrage du trafic et amÃ©lioration de la sÃ©curitÃ©</p>
+                <div class="project-tags"><span class="project-tag">SÃ©curitÃ©</span><span class="project-tag">ACL</span></div>
+              </div>
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet â†’</a>
+              </div>
+            </article>
+
+            <article class="project-card reveal network">
+              <div class="project-media">
+                <img src="VTPlogo.png" alt="VTP" />
+              </div>
+              <div class="project-body">
+                <h3>VTP</h3>
+                <p>Gestion des VLANs sur plusieurs switchs avec VTP (trunking).</p>
+                <p><strong>Objectif :</strong> Simplifier la gestion des VLANs sur plusieurs switchs</p>
+                <p><strong>Moyen :</strong> Configuration du protocole VTP en mode serveur/client</p>
+                <p><strong>RÃ©sultat :</strong> Synchronisation automatique des VLANs sur le rÃ©seau</p>
+                <div class="project-tags"><span class="project-tag">VLAN</span><span class="project-tag">VTP</span></div>
+              </div>
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet â†’</a>
+              </div>
+            </article>
+
+            <article class="project-card reveal network">
+              <div class="project-media">
+                <img src="hsrplogo.png" alt="HSRP" />
+              </div>
+              <div class="project-body">
+                <h3>HSRP</h3>
+                <p>Haute disponibilitÃ© des passerelles avec HSRP / VRRP.</p>
+                <p><strong>Objectif :</strong> Assurer la haute disponibilitÃ© des passerelles</p>
+                <p><strong>Moyen :</strong> Mise en place du protocole HSRP entre routeurs</p>
+                <p><strong>RÃ©sultat :</strong> ContinuitÃ© de service en cas de panne dâ€™un Ã©quipement</p>
+                <div class="project-tags"><span class="project-tag">HA</span><span class="project-tag">HSRP</span></div>
+              </div>
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet â†’</a>
+              </div>
+            </article>
+
+            <article class="project-card reveal network">
+              <div class="project-media">
+                <img src="dhcp_dnslogo.png" alt="DHCP/DNS" />
+              </div>
+              <div class="project-body">
+                <h3>DHCP / DNS</h3>
+                <p>Services dâ€™adressage automatique et rÃ©solution de noms (configuration et dÃ©pannage).</p>
+                <p><strong>Objectif :</strong> Automatiser lâ€™attribution des adresses IP et la rÃ©solution de noms</p>
+                <p><strong>Moyen :</strong> Configuration des services DHCP et DNS</p>
+                <p><strong>RÃ©sultat :</strong> Attribution automatique des IP et accÃ¨s simplifiÃ© aux ressources rÃ©seau</p>
+                <div class="project-tags"><span class="project-tag">DHCP</span><span class="project-tag">DNS</span></div>
+              </div>
+              <div class="project-action">
+                <a class="btn primary" href="#" onclick="return false;">Voir le projet â†’</a>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section id="bts">
+        <div class="container">
+          <h2>BTS SIO</h2>
+
+          <div class="card reveal">
+            <div class="p">
+              <div class="tabs" role="tablist" aria-label="Onglets BTS SIO">
+                <button class="tab-btn" role="tab" id="tab-slam" aria-controls="panel-slam" aria-selected="false" type="button">Option SLAM</button>
+                <button class="tab-btn" role="tab" id="tab-sisr" aria-controls="panel-sisr" aria-selected="true" type="button">Option SISR</button>
+                <button class="tab-btn" role="tab" id="tab-deb" aria-controls="panel-deb" aria-selected="false" type="button">DÃ©bouchÃ©s</button>
+              </div>
+
+              <div style="height:16px"></div>
+
+              <div class="tab-panel" id="panel-slam" role="tabpanel" aria-labelledby="tab-slam">
+                <div class="item">
+                  <h3>SLAM â€” DÃ©veloppement</h3>
+                  <p class="muted">
+                    Conception dâ€™applications, programmation, bases de donnÃ©es et solutions adaptÃ©es aux besoins mÃ©tiers.
+                  </p>
+                  <ul class="list">
+                    <li>Applications web / desktop</li>
+                    <li>BDD, requÃªtes, conception</li>
+                    <li>Tests, maintenance et Ã©volution</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tab-panel active" id="panel-sisr" role="tabpanel" aria-labelledby="tab-sisr">
+                <div class="item">
+                  <h3>SISR â€” Infrastructure</h3>
+                  <p class="muted">
+                    Administration systÃ¨mes et rÃ©seaux, dÃ©ploiement de services, supervision et sÃ©curisation.
+                  </p>
+                  <ul class="list">
+                    <li>Linux / Windows, services</li>
+                    <li>DNS, DHCP, AD, segmentation</li>
+                    <li>SÃ©curitÃ© : pare-feu, VPN</li>
+                    <li>Documentation et support</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="tab-panel" id="panel-deb" role="tabpanel" aria-labelledby="tab-deb">
+                <div class="item">
+                  <h3>DÃ©bouchÃ©s</h3>
+                  <div class="grid grid-2" style="margin-top:12px">
+                    <div class="item">
+                      <h3>SISR</h3>
+                      <ul class="list">
+                        <li>Technicien systÃ¨mes et rÃ©seaux</li>
+                        <li>Administrateur junior</li>
+                        <li>Technicien support / exploitation</li>
+                        <li>CybersÃ©curitÃ© (junior)</li>
+                      </ul>
+                    </div>
+                    <div class="item">
+                      <h3>SLAM</h3>
+                      <ul class="list">
+                        <li>DÃ©veloppeur web / applicatif</li>
+                        <li>DÃ©veloppeur logiciel</li>
+                        <li>Technicien applicatif</li>
+                        <li>IntÃ©grateur</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
 
         </div>
@@ -1362,83 +1993,40 @@
         <div class="container">
           <h2>Veille technologique</h2>
 
-          <div class="grid grid-2">
-            <div class="item">
-              <h3>Thèmes suivis</h3>
-              <ul class="list">
-                <li>CVE / vulnérabilités et correctifs</li>
-                <li>Hardening Windows & Linux</li>
-                <li>Réseau : segmentation, VPN, bonnes pratiques</li>
-                <li>Cybersécurité : méthodes d’attaque/défense (niveau junior)</li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <h3>Synthèse (exemple)</h3>
-              <p class="muted">
-                <strong>Date :</strong> à compléter<br>
-                Résumé : 5–6 lignes de ce que tu as compris, l’impact, et ce que tu appliquerais en entreprise.
+          <div class="veille-layout">
+            <div class="veille-panel reveal">
+              <div class="veille-kicker">D&eacute;finition</div>
+              <p class="veille-lead">
+                La veille technologique me permet de suivre les menaces, les outils et les bonnes pratiques utiles au m&eacute;tier d&rsquo;administrateur syst&egrave;mes et r&eacute;seaux.
               </p>
-              <ul class="list">
-                <li>Quel est le risque ?</li>
-                <li>Qui est impacté ?</li>
-                <li>Quelle mitigation ?</li>
-              </ul>
+              <p class="veille-lead">
+                Je filtre les actualit&eacute;s pour garder uniquement les sujets exploitables dans mes projets et ma progression technique.
+              </p>
+
+              <div class="veille-source-list">
+                <div class="veille-source">
+                  <h3>Google Alerts</h3>
+                  <p>Pour recevoir automatiquement des alertes cibl&eacute;es sur les vuln&eacute;rabilit&eacute;s, ransomwares et incidents critiques.</p>
+                </div>
+                <div class="veille-source">
+                  <h3>Feedly</h3>
+                  <p>Pour centraliser mes sources et rep&eacute;rer rapidement les informations vraiment utiles.</p>
+                </div>
+                <div class="veille-source">
+                  <h3>ZDNet / LeMagIT</h3>
+                  <p>Pour suivre une actualit&eacute; professionnelle li&eacute;e aux syst&egrave;mes, aux r&eacute;seaux et &agrave; la cybers&eacute;curit&eacute;.</p>
+                </div>
+                <div class="veille-source">
+                  <h3>LinkedIn</h3>
+                  <p>Pour suivre des professionnels du secteur et rep&eacute;rer des retours terrain concrets.</p>
+                </div>
+              </div>
+
+              <div class="veille-method">
+                <h3>Ce qui me diff&eacute;rencie</h3>
+                <p>Je ne me contente pas de lire l&rsquo;actualit&eacute; : je s&eacute;lectionne ce qui est utile et je le relie &agrave; mes comp&eacute;tences en cybers&eacute;curit&eacute;, r&eacute;seau, supervision et infrastructure.</p>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="docs">
-        <div class="container">
-          <h2>Documentation / Compte-rendus (TP)</h2>
-
-          <p class="sub">
-            Ici tu vas ajouter au fil du temps tes <strong>compte-rendus</strong> (TP, projets, procédures).
-            Pour l’instant : emplacements vides cliquables à remplacer par tes liens.
-          </p>
-
-          <div class="doc-grid">
-            <a class="doc-slot" href="#" onclick="return false;" aria-label="Emplacement 1">
-              <p class="title">📄 Emplacement #1 — TP à ajouter</p>
-              <p class="desc">Lien vers PDF / compte-rendu.</p>
-              <span class="badge">À remplir</span>
-            </a>
-
-            <a class="doc-slot" href="#" onclick="return false;" aria-label="Emplacement 2">
-              <p class="title">📄 Emplacement #2 — TP à ajouter</p>
-              <p class="desc">Ex : DHCP/DNS, AD, VPN, pfSense.</p>
-              <span class="badge">À remplir</span>
-            </a>
-
-            <a class="doc-slot" href="#" onclick="return false;" aria-label="Emplacement 3">
-              <p class="title">📄 Emplacement #3 — Projet</p>
-              <p class="desc">Ex : infra, réseau, service web.</p>
-              <span class="badge">À remplir</span>
-            </a>
-
-            <a class="doc-slot" href="#" onclick="return false;" aria-label="Emplacement 4">
-              <p class="title">📄 Emplacement #4 — Procédure</p>
-              <p class="desc">Checklist, tuto, doc interne.</p>
-              <span class="badge">À remplir</span>
-            </a>
-
-            <a class="doc-slot" href="#" onclick="return false;" aria-label="Emplacement 5">
-              <p class="title">📄 Emplacement #5 — Veille / Analyse</p>
-              <p class="desc">Synthèse sécurité, CVE, etc.</p>
-              <span class="badge">À remplir</span>
-            </a>
-
-            <a class="doc-slot" href="#" onclick="return false;" aria-label="Emplacement 6">
-              <p class="title">📄 Emplacement #6 — Bonus</p>
-              <p class="desc">Autres preuves / captures.</p>
-              <span class="badge">À remplir</span>
-            </a>
-          </div>
-
-          <div style="height:18px"></div>
-          <div class="note">
-            Quand tu ajoutes un PDF : remplace <strong>href="#"</strong> par <strong>docs/ton_fichier.pdf</strong>.
           </div>
         </div>
       </section>
@@ -1448,26 +2036,22 @@
           <h2>Contact</h2>
 
           <div class="grid grid-2">
-            <div class="item">
-              <h3>Coordonnées</h3>
-              <p class="muted" style="margin:0">
-                Email : <strong style="color:var(--text)">lirone9955@gmail.com</strong><br>
-                Téléphone : <strong style="color:var(--text)">07 83 10 68 65</strong><br>
-                LinkedIn/Git : <strong style="color:var(--text)">à compléter</strong>
-              </p>
-
-              <div style="height:12px"></div>
-              <div class="note">
-                Si tu veux un contact “vrai”, on peut brancher un backend (Node) ou un service.
-                Sinon, on garde en simple formulaire visuel.
+            <div class="item reveal contact-card">
+              <h3>CoordonnÃ©es</h3>
+              <div class="contact-meta">
+                <p class="muted">Email : <strong style="color:var(--text)">lirone9955@gmail.com</strong></p>
+                <p class="muted">TÃ©lÃ©phone : <strong style="color:var(--text)">07 83 10 68 65</strong></p>
+                <p class="muted">LinkedIn/Git : <strong style="color:var(--text)">Ã  complÃ©ter</strong></p>
               </div>
             </div>
 
-            <div class="item">
+            <div class="item reveal">
               <h3>Message</h3>
-              <form onsubmit="sendContactForm(event)">
-                <input type="text" placeholder="Nom" required />
-                <input type="email" placeholder="Email" required />
+              <form class="contact-form" onsubmit="sendContactForm(event)">
+                <div class="row">
+                  <input type="text" placeholder="Nom" required />
+                  <input type="email" placeholder="Email" required />
+                </div>
                 <textarea placeholder="Message" required></textarea>
                 <button class="btn primary" type="submit">Envoyer</button>
                 <div id="contact-confirm" role="status" style="display:none;margin-top:10px;color:var(--brand);font-weight:900;"></div>
@@ -1481,7 +2065,7 @@
 
     <footer>
       <div class="container">
-        © <span id="y"></span> Lirone ADDAD — Portfolio BTS SIO
+        Â© <span id="y"></span> Lirone ADDAD â€” Portfolio BTS SIO
       </div>
     </footer>
 
@@ -1490,7 +2074,69 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Tabs BTS SIO
+    // ===== Progress bar scroll =====
+    (function initProgress(){
+      const bar = document.getElementById('progress');
+      function onScroll(){
+        const doc = document.documentElement;
+        const max = (doc.scrollHeight - doc.clientHeight) || 1;
+        const p = Math.min(1, Math.max(0, (doc.scrollTop / max)));
+        bar.style.transform = 'scaleX(' + p + ')';
+      }
+      window.addEventListener('scroll', onScroll, { passive:true });
+      onScroll();
+    })();
+
+    // ===== Typewriter =====
+    function typewriter(el, text, speed){
+      return new Promise((resolve)=>{
+        const s = Math.max(8, Number(speed || 22));
+        el.textContent = "";
+        let i = 0;
+
+        const tick = () => {
+          el.textContent = text.slice(0, i);
+          i++;
+          if(i <= text.length){
+            setTimeout(tick, s);
+          }else{
+            el.classList.add('done');
+            resolve();
+          }
+        };
+        tick();
+      });
+    }
+
+    (async function initType(){
+      const els = Array.from(document.querySelectorAll('.type[data-text]'));
+      for(const el of els){
+        const text = el.getAttribute('data-text') || "";
+        const speed = el.getAttribute('data-speed') || 22;
+        await typewriter(el, text, speed);
+        await new Promise(r => setTimeout(r, 140));
+      }
+    })();
+
+    // ===== Reveal on scroll =====
+    (function initReveal(){
+      const items = Array.from(document.querySelectorAll('.reveal'));
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      items.forEach((el, idx)=>{
+        el.style.transitionDelay = (Math.min(idx, 8) * 60) + 'ms';
+        io.observe(el);
+      });
+    })();
+
+    // ===== Tabs BTS SIO =====
     (function initTabs(){
       const tabButtons = Array.from(document.querySelectorAll('.tab-btn[role="tab"]'));
       const panels = Array.from(document.querySelectorAll('.tab-panel[role="tabpanel"]'));
@@ -1543,11 +2189,39 @@
 
       const conf = document.getElementById('contact-confirm');
       conf.style.display = 'block';
-      conf.textContent = 'Message enregistré localement (portfolio).';
+      conf.textContent = 'Message enregistrÃ© localement (portfolio).';
 
       setTimeout(()=>{ conf.style.display = 'none'; }, 6000);
     }
+
+    // ===== Tab functionality =====
+    (function initTabs(){
+      document.querySelectorAll('.tab-buttons').forEach(container => {
+        const buttons = container.querySelectorAll('.tab-btn');
+        const panels = container.parentElement.querySelectorAll('.tab-panel');
+
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            // Remove active class from all buttons and panels
+            buttons.forEach(b => b.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding panel
+            btn.classList.add('active');
+            const tabId = btn.getAttribute('data-tab');
+            const panel = container.parentElement.querySelector(`#${tabId}`);
+            if(panel) panel.classList.add('active');
+          });
+        });
+      });
+    })();
   </script>
+
+  <!-- theme toggle button -->
+  <button id="theme-toggle" aria-label="Toggle theme" style="position:fixed;bottom:20px;left:20px;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;z-index:90;background:var(--brand);color:#fff;">
+    ðŸŒ™
+  </button>
 
 </body>
 </html>
+
