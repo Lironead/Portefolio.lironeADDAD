@@ -836,6 +836,7 @@
       justify-content:center;
       border-bottom:1px solid rgba(15,23,42,.06);
       max-width:100%;
+      overflow:hidden;
     }
     .project-media img{
       width:100%;
@@ -851,6 +852,23 @@
       max-width:100%;
       max-height:100%;
       object-fit:contain;
+    }
+    .project-card.mitm .project-media img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      padding:8px;
+      background:#fff;
+    }
+    .project-card.pfsense .project-media img,
+    .project-card.dhcpdns .project-media img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      padding:8px;
+      background:#fff;
     }
 
     .project-body{
@@ -1248,7 +1266,6 @@
                   <div class="muted"><strong>&#128205;</strong> Saint-Brice</div>
                   <div class="muted"><strong>&#9993;</strong> lirone9955@gmail.com</div>
                   <div class="muted"><strong>&#128241;</strong> 07 83 10 68 65</div>
-                  <div class="muted"><strong>&#128279;</strong> Git / LinkedIn : <strong>&agrave; compl&eacute;ter</strong></div>
                 </div>
               </div>
 
@@ -1656,7 +1673,7 @@
           <h3 style="margin:0 0 12px; text-align:center;">Syst&#232;me / Cybers&#233;curit&#233;</h3>
           <div class="project-grid">
 
-            <article class="project-card reveal">
+            <article class="project-card reveal pfsense">
               <div class="project-media">
                 <img src="glpi.jpg" alt="Mise en place GLPI" />
               </div>
@@ -1680,7 +1697,7 @@
               </div>
             </article>
 
-            <article class="project-card reveal">
+            <article class="project-card reveal dhcpdns">
               <div class="project-media">
                 <img src="active-directory.png" alt="Active Directory" />
               </div>
@@ -1728,9 +1745,9 @@
               </div>
             </article>
 
-            <article class="project-card reveal">
+            <article class="project-card reveal mitm">
               <div class="project-media">
-                <div class="muted" style="font-weight:800;">Image &#224; venir</div>
+                <img src="MITM.png" alt="Attaque Man in the Middle" />
               </div>
 
               <div class="project-body">
@@ -1748,7 +1765,7 @@
               </div>
 
               <div class="project-action">
-                <a class="btn primary" href="#" onclick="return false;">Voir le projet &#8594;</a>
+                <a class="btn primary" href="tp_MITM.pdf" target="_blank">Voir le projet &#8594;</a>
               </div>
             </article>
 
@@ -1807,7 +1824,7 @@
           <h3 style="margin:0 0 12px; text-align:center;">R&#233;seaux</h3>
           <div class="project-grid">
 
-            <article class="project-card reveal network">
+            <article class="project-card reveal network dhcpdns">
               <div class="project-media">
                 <img src="intervlanlogo.png" alt="Routage inter-VLAN" />
               </div>
@@ -2041,7 +2058,6 @@
               <div class="contact-meta">
                 <p class="muted">Email : <strong style="color:var(--text)">lirone9955@gmail.com</strong></p>
                 <p class="muted">T&eacute;l&eacute;phone : <strong style="color:var(--text)">07 83 10 68 65</strong></p>
-                <p class="muted">LinkedIn/Git : <strong style="color:var(--text)">&agrave; compl&eacute;ter</strong></p>
               </div>
             </div>
 
